@@ -1,2 +1,2 @@
-# Blog
-vuepress搭建的静态博客
+# XingHe-Blog
+使用 vuepress-theme-hope 创建的博客
