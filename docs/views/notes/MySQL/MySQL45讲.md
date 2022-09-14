@@ -189,7 +189,7 @@ mysql> update T set c=c+1 where ID=2;
 
 ![img](https://qiniu.dyl.fit/Interview/0d2070e8f84c4801adbfa03bda1f98d9.png)
 
-<center>MySQL的逻辑架构图
+<center>MySQL的逻辑架构图</center>
 
 你执行语句前要先连接数据库，这是连接器的工作。
 
@@ -258,7 +258,7 @@ write pos和checkpoint之间的是“粉板”上还空着的部分，可以用�
 
 ![img](https://qiniu.dyl.fit/Interview/2e5bff4910ec189fe1ee6e2ecc7b4bbe.png)
 
-<center>update语句执行流程
+<center>update语句执行流程</center>
 
 你可能注意到了，最后三步看上去有点“绕”，将redo log的写入拆成了两个步骤：prepare和commit，这就是"两阶段提交"。
 
@@ -536,7 +536,7 @@ index (k))engine=InnoDB;
 
 ![img](https://qiniu.dyl.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
 
-<center>图4 InnoDB的索引组织结构
+<center>图4 InnoDB的索引组织结构</center>
 
 从图中不难看出，根据叶子节点的内容，索引类型分为主键索引和非主键索引。
 
@@ -684,7 +684,7 @@ insert into T values(100,1, 'aa'),(200,2,'bb'),(300,3,'cc'),(500,5,'ee'),(600,6,
 
 ![img](https://qiniu.dyl.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
 
-<center>图1 InnoDB的索引组织结构
+<center>图1 InnoDB的索引组织结构</center>
 
 现在，我们一起来看看这条SQL查询语句的执行流程：
 
@@ -741,7 +741,7 @@ CREATE TABLE `tuser` (
 
 ![img](https://qiniu.dyl.fit/Interview/89f74c631110cfbc83298ef27dcd6370.jpg)
 
-<center>图2（name，age）索引示意图
+<center>图2（name，age）索引示意图</center>
 
 可以看到，索引项是按照索引定义里面出现的字段顺序排序的。
 
@@ -785,11 +785,11 @@ mysql> select * from tuser where name like '张%' and age=10 and ismale=1;
 
 ![img](https://qiniu.dyl.fit/Interview/b32aa8b1f75611e0759e52f5915539ac.jpg)
 
-<center>图3 无索引下推执行流程
+<center>图3 无索引下推执行流程</center>
 
 ![img](https://qiniu.dyl.fit/Interview/76e385f3df5a694cc4238c7b65acfe1b.jpg)
 
-<center>图4 索引下推执行流程
+<center>图4 索引下推执行流程</center>
 
 在图3和4这两个图里面，每一个虚线箭头表示回表一次。
 
@@ -878,7 +878,7 @@ PS：如果你在面试中，曾有过被MySQL相关问题难住的经历，也�
 
 ![img](https://qiniu.dyl.fit/Interview/cbfd4a0bbb1210792064bcea4e49b0cd.png)
 
-<center>图1 业务和备份状态图
+<center>图1 业务和备份状态图</center>
 
 可以看到，这个备份结果里，用户A的数据状态是“账户余额没扣，但是用户课程表里面已经多了一门课”。如果后面用这个备份来恢复数据的话，用户A就发现，自己赚了。
 
