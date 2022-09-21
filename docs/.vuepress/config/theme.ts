@@ -77,6 +77,10 @@ export default hopeTheme({
       article: "/views/"
     },
 
+    copyCode: { 
+      showInMobile: true 
+    },
+    
     copyright: {
       global: true,
       author: "DYL",
