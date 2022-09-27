@@ -23,7 +23,53 @@ export default sidebar([
     collapsable: true,
     prefix: "/views/interview/",
     link: "/views/interview/",
-    children: "structure",
+    children: [
+      {
+        text: "Java",
+        icon: "java",
+        collapsable: true,
+        prefix: "Java/",
+        link: "/views/interview/java/",
+        children: [
+          {
+            text: "并发编程",
+            collapsable: true,
+            prefix: "并发编程/",
+            children: "structure",
+          },
+          {
+            text: "基础",
+            collapsable: true,
+            prefix: "基础/",
+            children: "structure",
+          },
+          {
+            text: "集合",
+            collapsable: true,
+            prefix: "集合/",
+            children: "structure",
+          },
+          {
+            text: "新特性",
+            collapsable: true,
+            prefix: "新特性/",
+            children: "structure",
+          },
+          {
+            text: "IO",
+            collapsable: true,
+            prefix: "IO/",
+            children: "structure",
+          },
+          {
+            text: "JVM",
+            collapsable: true,
+            prefix: "JVM/",
+            children: "structure",
+          }
+        ],
+      }
+    ],
   },
   {
     text: "笔记",
