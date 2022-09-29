@@ -45,8 +45,8 @@ export default hopeTheme({
   // darkmode: "auto",
 
   displayFooter: true,
-  footer: "MIT Licensed | Copyright © 2022 DYL",
-  copyright: "",
+  footer: '<a href="https://beian.miit.gov.cn" target="_blank"> 皖ICP备2021015742号</a>',
+  copyright: "Copyright © 2022 DYL",
 
   pageInfo: ["Author", "Original", "Date", "Category", "Tag", "ReadingTime"],
 
