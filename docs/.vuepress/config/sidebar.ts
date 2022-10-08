@@ -68,6 +68,14 @@ export default sidebar([
             children: "structure",
           }
         ],
+      },
+      {
+        text: "常用框架",
+        icon: "iframe",
+        collapsable: true,
+        prefix: "framework/",
+        // link: "/views/interview/framework/",
+        children: "structure"
       }
     ],
   },
