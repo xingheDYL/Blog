@@ -12,7 +12,7 @@ export default hopeTheme({
   },
 
   // iconAssets: "iconfont",
-  iconAssets: "//at.alicdn.com/t/c/font_3642624_gczozy17bhk.css",
+  iconAssets: "//at.alicdn.com/t/c/font_3642624_zbbwe8jsq98.css",
 
   // 支持全屏
   fullscreen: true,
