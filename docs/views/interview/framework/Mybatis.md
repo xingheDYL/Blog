@@ -1,6 +1,6 @@
 ---
 title: Mybatis 常见面试题
-date: 2022-8-11
+date: 2022-08-11
 category:
   - 面试准备
 tag:
