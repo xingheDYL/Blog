@@ -5,6 +5,7 @@ date: 2022-10-10
 category:
  - 算法
 tag:
+ - 字符串
  - 快慢指针法
 ---
 ## 题目链接：[剑指Offer 05.替换空格](https://leetcode.cn/problems/ti-huan-kong-ge-lcof/)

@@ -76,6 +76,38 @@ export default sidebar([
         prefix: "framework/",
         // link: "/views/interview/framework/",
         children: "structure"
+      },
+      {
+        text: "计算机基础",
+        icon: "computer",
+        collapsable: true,
+        prefix: "CS-basic/",
+        // link: "/views/interview/CS-basic/",
+        children: [
+          {
+            text: "操作系统",
+            icon: "caozuoxitong",
+            collapsable: true,
+            prefix: "opearting-system/",
+            children: "structure"
+          },
+          {
+            text: "计算机网络",
+            icon: "wangluo",
+            collapsable: true,
+            prefix: "network/",
+            children: [
+              "计算机网络",
+              {
+                text: "重要知识点",
+                icon: "star",
+                collapsable: true,
+                prefix: "重要知识点/",
+                children: "structure"
+              }
+            ]
+          },
+        ]
       }
     ],
   },
@@ -91,7 +123,7 @@ export default sidebar([
         icon: "mysql",
         collapsable: true,
         prefix: "MySQL/",
-        children: "structure",
+        children: "structure"
       }
     ],
   },

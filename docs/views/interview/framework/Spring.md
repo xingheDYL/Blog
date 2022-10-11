@@ -400,7 +400,7 @@ MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心
 
 ![img](https://qiniu.dyl.fit/Interview/image-20210809181452421.png)
 
-网上有很多人说 MVC 不是设计模式，只是软件设计规范，我个人更倾向于 MVC 同样是众多设计模式中的一种。**[java-design-patternsopen in new window](https://github.com/iluwatar/java-design-patterns)** 项目中就有关于 MVC 的相关介绍。
+网上有很多人说 MVC 不是设计模式，只是软件设计规范，我个人更倾向于 MVC 同样是众多设计模式中的一种。**[java-design-patterns](https://github.com/iluwatar/java-design-patterns)** 项目中就有关于 MVC 的相关介绍。
 
 ![img](https://qiniu.dyl.fit/Interview/159b3d3e70dd45e6afa81bf06d09264e.png)
 
@@ -578,7 +578,7 @@ public class App {
 
 **Spring 实现单例的方式：**
 
-- xml:<bean id="userService" class="top.snailclimb.UserService" scope="singleton"/>``
+- xml:``<bean id="userService" class="top.snailclimb.UserService" scope="singleton"/>``
 - 注解：`@Scope(value = "singleton")`
 
 Spring 通过 `ConcurrentHashMap` 实现单例注册表的特殊方式实现单例模式。Spring 实现单例的核心代码如下：
@@ -882,7 +882,7 @@ public class OrdersService {
 - **隔离性（Isolation）：** 数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括未提交读（Read uncommitted）、提交读（read committed）、可重复读（repeatable read）和串行化（Serializable）。
 - **持久性（Durability）:** 事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。
 
-参考 ：[https://zh.wikipedia.org/wiki/ACIDopen in new window](https://zh.wikipedia.org/wiki/ACID) 。
+参考 ：[https://zh.wikipedia.org/wiki/ACID](https://zh.wikipedia.org/wiki/ACID) 。
 
 ### 详谈 Spring 对事务的支持
 
@@ -1599,7 +1599,7 @@ Spring Security 重要的是实战，这里仅对小部分知识点进行总结�
 
 ### hasRole 和 hasAuthority 有区别吗？
 
-可以看看这篇文章：[Spring Security 中的 hasRole 和 hasAuthority 有区别吗？open in new window](https://mp.weixin.qq.com/s/GTNOa2k9_n_H0w24upClRw)，介绍的比较详细。
+可以看看这篇文章：[Spring Security 中的 hasRole 和 hasAuthority 有区别吗？](https://mp.weixin.qq.com/s/GTNOa2k9_n_H0w24upClRw)，介绍的比较详细。
 
 ### 如何对密码进行加密？
 
