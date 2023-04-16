@@ -124,7 +124,14 @@ export default sidebar([
         collapsable: true,
         prefix: "MySQL/",
         children: "structure"
-      }
+      },
+      {
+        text: "项目",
+        icon: "project",
+        collapsable: true,
+        prefix: "Project/",
+        children: "structure"
+      },
     ],
   },
 ]);
