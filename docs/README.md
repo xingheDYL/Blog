@@ -24,6 +24,11 @@ projects:
     desc: 若依系统搭建的项目
     link: https://ruoyi.dyl.fit/
 
+  - icon: project
+    name: 项目支撑管理系统
+    desc: 管理项目和人员的项目
+    link: https://projectmanage.dyl.fit/
+
   - icon: link
     name: 浏览器主页项目
     desc: Html + CSS + JavaScript 搭建的自定义浏览器主页项目
