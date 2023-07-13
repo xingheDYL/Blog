@@ -126,6 +126,20 @@ export default sidebar([
         children: "structure"
       },
       {
+        text: "Spring",
+        icon: "spring",
+        collapsable: true,
+        prefix: "Spring/",
+        children: "structure"
+      },
+      {
+        text: "MyBatis-Plus",
+        icon: "mybatisplus",
+        collapsable: true,
+        prefix: "Mybatis-Plus/",
+        children: "structure"
+      },
+      {
         text: "项目",
         icon: "project",
         collapsable: true,
