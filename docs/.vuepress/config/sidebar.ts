@@ -136,7 +136,7 @@ export default sidebar([
         text: "MyBatis-Plus",
         icon: "mybatisplus",
         collapsable: true,
-        prefix: "Mybatis-Plus/",
+        prefix: "MyBatis-Plus/",
         children: "structure"
       },
       {
