@@ -2,4 +2,4 @@
 User-agent:*
 Disallow:
 
-Sitemap: https://xingheblog.dyl.fit/sitemap.xml
+Sitemap: https://xingheblog.xinghe.fit/sitemap.xml
