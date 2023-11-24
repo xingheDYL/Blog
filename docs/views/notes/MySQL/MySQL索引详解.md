@@ -46,11 +46,11 @@ hash = hashfunc(key)
 index = hash % array_size
 ```
 
-![img](https://qiniu.dyl.fit/Interview/20210513092328171.png)
+![img](https://qiniu.xinghe.fit/Interview/20210513092328171.png)
 
 但是！哈希算法有个 **Hash 冲突** 问题，也就是说多个不同的 key 最后得到的 index 相同。通常情况下，我们常用的解决办法是 **链地址法**。链地址法就是将哈希冲突数据存放在链表中。就比如 JDK1.8 之前 `HashMap` 就是通过链地址法来解决哈希冲突的。不过，JDK1.8 以后`HashMap`为了减少链表过长的时候搜索时间过长引入了红黑树。
 
-![img](https://qiniu.dyl.fit/Interview/20210513092224836.png)
+![img](https://qiniu.xinghe.fit/Interview/20210513092224836.png)
 
 为了减少 Hash 冲突的发生，一个好的哈希函数应该“均匀地”将数据分布在整个可能的哈希值集合中。
 
@@ -96,7 +96,7 @@ InnoDB 引擎中，其数据文件本身就是索引文件。相比 MyISAM，索
 
 在 MySQL 的 InnoDB 的表中，当没有显示的指定表的主键时，InnoDB 会自动先检查表中是否有唯一索引且不允许存在null值的字段，如果有，则选择该字段为默认的主键，否则 InnoDB 将会自动创建一个 6Byte 的自增主键。
 
-![img](https://qiniu.dyl.fit/Interview/cluster-index.png)
+![img](https://qiniu.xinghe.fit/Interview/cluster-index.png)
 
 ### 二级索引(辅助索引)
 
@@ -113,7 +113,7 @@ InnoDB 引擎中，其数据文件本身就是索引文件。相比 MyISAM，索
 
 二级索引:
 
-![img](https://qiniu.dyl.fit/Interview/no-cluster-index.png)
+![img](https://qiniu.xinghe.fit/Interview/no-cluster-index.png)
 
 ## 聚集索引与非聚集索引
 
@@ -151,11 +151,11 @@ InnoDB 引擎中，其数据文件本身就是索引文件。相比 MyISAM，索
 
 这是 MySQL 的表的文件截图:
 
-![img](https://qiniu.dyl.fit/Interview/20210420165311654.png)
+![img](https://qiniu.xinghe.fit/Interview/20210420165311654.png)
 
 聚集索引和非聚集索引:
 
-![img](https://qiniu.dyl.fit/Interview/20210420165326946.png)
+![img](https://qiniu.xinghe.fit/Interview/20210420165326946.png)
 
 ### 非聚集索引一定回表查询吗(覆盖索引)?
 
@@ -189,7 +189,7 @@ SELECT id FROM table WHERE id=1;
 
 覆盖索引:
 
-![img](https://qiniu.dyl.fit/Interview/20210420165341868.png)
+![img](https://qiniu.xinghe.fit/Interview/20210420165341868.png)
 
 ## 联合索引
 

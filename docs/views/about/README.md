@@ -32,9 +32,9 @@ toc: false
 
 ## 社区
 
-- WordPress博客1：[https://blog.dyl.fit](https://blog.dyl.fit)
-- WordPress博客2：[https://xinghe.dyl.fit](https://xinghe.dyl.fit)
-- Vuepress博客：[https://xingheblog.dyl.fit](https://xingheblog.dyl.fit)
+- WordPress博客1：[https://blog.xinghe.fit](https://blog.xinghe.fit)
+- WordPress博客2：[https://xinghe.xinghe.fit](https://xinghe.xinghe.fit)
+- Vuepress博客：[https://xingheblog.xinghe.fit](https://xingheblog.xinghe.fit)
 - Github：[https://github.com/xingheDYL](https://github.com/xingheDYL)
 - Gitee: [https://gitee.com/xinghedyl](https://gitee.com/xinghedyl)
 

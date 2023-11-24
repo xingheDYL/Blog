@@ -17,62 +17,62 @@ projects:
   - icon: project
     name: 学生管理系统
     desc: SSM 技术搭建的学生管理系统(由于服务器比较小，暂未启动)
-    link: https://studentmanage.dyl.fit
+    link: https://studentmanage.xinghe.fit
 
   - icon: project
     name: 农产品销售管理系统
     desc: SSM 技术搭建的农产品销售管理系统
-    link: https://ncpxs.dyl.fit
+    link: https://ncpxs.xinghe.fit
 
   - icon: project
     name: 论坛项目
     desc: springboot + es 搭建的项目(由于服务器比较小，暂未启动)
-    link: https://lt.dyl.fit/
+    link: https://lt.xinghe.fit/
 
   - icon: project
     name: 用户中心项目
     desc: 项目详细描述
-    link: https://user-center.dyl.fit/
+    link: https://user-center.xinghe.fit/
 
   - icon: project
     name: 若依管理系统项目
     desc: 若依系统搭建的项目(由于服务器比较小，暂未启动)
-    link: https://ruoyi.dyl.fit/
+    link: https://ruoyi.xinghe.fit/
 
   - icon: project
     name: 人脸识别项目
     desc: 一个人脸识别的测试项目
-    link: https://face.dyl.fit/
+    link: https://face.xinghe.fit/
 
   - icon: project
     name: 支教经历分享平台
     desc: 一个分享支教经历的测试项目
-    link: https://zhijiao.dyl.fit/
+    link: https://zhijiao.xinghe.fit/
 
   - icon: project
     name: 项目支撑管理系统
     desc: 管理项目和人员的项目(由于服务器比较小，暂未启动)
-    link: https://projectmanage.dyl.fit/
+    link: https://projectmanage.xinghe.fit/
 
   - icon: link
     name: 浏览器主页项目
     desc: Html + CSS + JavaScript 搭建的自定义浏览器主页项目
-    link: https://search.dyl.fit
+    link: https://search.xinghe.fit
 
   - icon: link
     name: 仿羊了个羊小游戏
     desc: 仿羊了个羊小游戏
-    link: https://xyx.dyl.fit
+    link: https://xyx.xinghe.fit
 
   - icon: link
     name: 敲木鱼
     desc: 在线敲木鱼
-    link: https://muyu.dyl.fit
+    link: https://muyu.xinghe.fit
 
   - icon: link
     name: 网盘挂载
     desc: 网盘挂载
-    link: https://pan.dyl.fit
+    link: https://pan.xinghe.fit
 # footer: <div style="color:#F08047">我的客栈已营业：<span id="htmer_time"></span></div>
 ---
 

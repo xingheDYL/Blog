@@ -26,17 +26,17 @@ Spring 提供的核心功能主要是 IoC 和 AOP。
 
 **Spring4.x 版本** ：
 
-![Spring4.x主要模块](https://qiniu.dyl.fit/Interview/jvme0c60b4606711fc4a0b6faf03230247a.png)
+![Spring4.x主要模块](https://qiniu.xinghe.fit/Interview/jvme0c60b4606711fc4a0b6faf03230247a.png)
 
 **Spring5.x 版本** ：
 
-![Spring5.x主要模块](https://qiniu.dyl.fit/Interview/20200831175708.png)
+![Spring5.x主要模块](https://qiniu.xinghe.fit/Interview/20200831175708.png)
 
 Spring5.x 版本中 Web 模块的 Portlet 组件已经被废弃掉，同时增加了用于异步响应式处理的 WebFlux 组件。
 
 Spring 各个模块的依赖关系如下：
 
-![Spring 各个模块的依赖关系](https://qiniu.dyl.fit/Interview/20200902100038.png)
+![Spring 各个模块的依赖关系](https://qiniu.xinghe.fit/Interview/20200902100038.png)
 
 #### Core Container
 
@@ -84,11 +84,11 @@ Spring 包含了多个功能模块（上面刚刚提过），其中最重要的�
 
 下图对应的是 Spring4.x 版本。目前最新的 5.x 版本中 Web 模块的 Portlet 组件已经被废弃掉，同时增加了用于异步响应式处理的 WebFlux 组件。
 
-![Spring主要模块](https://qiniu.dyl.fit/Interview/jvme0c60b4606711fc4a0b6faf03230247a.png)
+![Spring主要模块](https://qiniu.xinghe.fit/Interview/jvme0c60b4606711fc4a0b6faf03230247a.png)
 
 Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
 
-![img](https://qiniu.dyl.fit/Interview/image-20210809181452421.png)
+![img](https://qiniu.xinghe.fit/Interview/image-20210809181452421.png)
 
 使用 Spring 进行开发各种配置过于麻烦比如开启某些 Spring 特性时，需要用 XML 或 Java 进行显式配置。于是，Spring Boot 诞生了！
 
@@ -107,7 +107,7 @@ Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程�
 - **控制** ：指的是对象创建（实例化、管理）的权力
 - **反转** ：控制权交给外部环境（Spring 框架、IoC 容器）
 
-![img](https://qiniu.dyl.fit/Interview/frc-365faceb5697f04f31399937c059c162.png)
+![img](https://qiniu.xinghe.fit/Interview/frc-365faceb5697f04f31399937c059c162.png)
 
 将对象之间的相互依赖关系交给 IoC 容器来管理，并由 IoC 容器完成对象的注入。这样可以很大程度上简化应用的开发，把应用从复杂的依赖关系中解放出来。 IoC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件/注解即可，完全不用考虑对象是如何被创建出来的。
 
@@ -321,7 +321,7 @@ public Person personPrototype() {
 
 图示：
 
-![Spring Bean 生命周期](https://qiniu.dyl.fit/Interview/b5d264565657a5395c2781081a7483e1.jpg)
+![Spring Bean 生命周期](https://qiniu.xinghe.fit/Interview/b5d264565657a5395c2781081a7483e1.jpg)
 
 ## Spring AOP
 
@@ -331,7 +331,7 @@ AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无�
 
 Spring AOP 就是基于动态代理的，如果要代理的对象，实现了某个接口，那么 Spring AOP 会使用 **JDK Proxy**，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 **Cglib** 生成一个被代理对象的子类来作为代理，如下图所示：
 
-![SpringAOPProcess](https://qiniu.dyl.fit/Interview/230ae587a322d6e4d09510161987d346.jpeg)
+![SpringAOPProcess](https://qiniu.xinghe.fit/Interview/230ae587a322d6e4d09510161987d346.jpeg)
 
 当然你也可以使用 **AspectJ** ！Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。
 
@@ -398,11 +398,11 @@ public class LoggingAspect implements Ordered {
 
 MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
 
-![img](https://qiniu.dyl.fit/Interview/image-20210809181452421.png)
+![img](https://qiniu.xinghe.fit/Interview/image-20210809181452421.png)
 
 网上有很多人说 MVC 不是设计模式，只是软件设计规范，我个人更倾向于 MVC 同样是众多设计模式中的一种。**[java-design-patterns](https://github.com/iluwatar/java-design-patterns)** 项目中就有关于 MVC 的相关介绍。
 
-![img](https://qiniu.dyl.fit/Interview/159b3d3e70dd45e6afa81bf06d09264e.png)
+![img](https://qiniu.xinghe.fit/Interview/159b3d3e70dd45e6afa81bf06d09264e.png)
 
 想要真正理解 Spring MVC，我们先来看看 Model 1 和 Model 2 这两个没有 Spring MVC 的时代。
 
@@ -412,7 +412,7 @@ MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心
 
 这个模式下 JSP 即是控制层（Controller）又是表现层（View）。显而易见，这种模式存在很多问题。比如控制逻辑和表现逻辑混杂在一起，导致代码重用率极低；再比如前端和后端相互依赖，难以进行测试维护并且开发效率极低。
 
-![mvc-mode1](https://qiniu.dyl.fit/Interview/mvc-mode1.png)
+![mvc-mode1](https://qiniu.xinghe.fit/Interview/mvc-mode1.png)
 
 **Model 2 时代**
 
@@ -422,7 +422,7 @@ MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心
 - View：展示模型中的数据，只是用来展示。
 - Controller：处理用户请求都发送给 ，返回数据给 JSP 并展示给用户。
 
-![img](https://qiniu.dyl.fit/Interview/mvc-model2.png)
+![img](https://qiniu.xinghe.fit/Interview/mvc-model2.png)
 
 Model2 模式下还存在很多问题，Model2 的抽象和封装程度还远远不够，使用 Model2 进行开发时不可避免地会重复造轮子，这就大大降低了程序的可维护性和复用性。
 
@@ -450,7 +450,7 @@ MVC 是一种设计模式，Spring MVC 是一款很优秀的 MVC 框架。Spring
 
 > SpringMVC 工作原理的图解我没有自己画，直接图省事在网上找了一个非常清晰直观的，原出处不明。
 
-![img](https://qiniu.dyl.fit/Interview/de6d2b213f112297298f3e223bf08f28.png)
+![img](https://qiniu.xinghe.fit/Interview/de6d2b213f112297298f3e223bf08f28.png)
 
 **流程说明（重要）：**
 
@@ -518,7 +518,7 @@ public class GlobalExceptionHandler {
 
 **IoC(Inversion of Control,控制翻转)** 是Spring 中一个非常非常重要的概念，它不是什么技术，而是一种解耦的设计思想。它的主要目的是借助于“第三方”(Spring 中的 IOC 容器) 实现具有依赖关系的对象之间的解耦(IOC 容易管理对象，你只管使用即可)，从而降低代码之间的耦合度。**IOC 是一个原则，而不是一个模式，以下模式（但不限于）实现了IoC原则。**
 
-![ioc-patterns](https://qiniu.dyl.fit/Interview/ioc-patterns.jpg)
+![ioc-patterns](https://qiniu.xinghe.fit/Interview/ioc-patterns.jpg)
 
 **Spring IOC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件/注解即可，完全不用考虑对象是如何被创建出来的。** IOC 容器负责创建对象，将对象连接在一起，配置这些对象，并从创建中处理这些对象的整个生命周期，直到它们被完全销毁。
 
@@ -622,7 +622,7 @@ AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无�
 
 **Spring AOP 就是基于动态代理的**，如果要代理的对象，实现了某个接口，那么Spring AOP会使用**JDK Proxy**，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候Spring AOP会使用**Cglib** ，这时候Spring AOP会使用 **Cglib** 生成一个被代理对象的子类来作为代理，如下图所示：
 
-![SpringAOPProcess](https://qiniu.dyl.fit/Interview/SpringAOPProcess.jpg)
+![SpringAOPProcess](https://qiniu.xinghe.fit/Interview/SpringAOPProcess.jpg)
 
 当然你也可以使用 AspectJ ,Spring AOP 已经集成了AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。
 
@@ -640,7 +640,7 @@ Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系�
 
 模板方法模式是一种行为设计模式，它定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤的实现方式。
 
-![模板方法UML图](https://qiniu.dyl.fit/Interview/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95UML%E5%9B%BE.jpg)
+![模板方法UML图](https://qiniu.xinghe.fit/Interview/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95UML%E5%9B%BE.jpg)
 
 ```java
 public abstract class Template {
@@ -693,7 +693,7 @@ Spring 中默认存在以下事件，他们都是对 `ApplicationContextEvent` �
 - `ContextRefreshedEvent`：`ApplicationContext` 初始化或刷新完成后触发的事件;
 - `ContextClosedEvent`：`ApplicationContext` 关闭后触发的事件。
 
-![ApplicationEvent-Subclass](https://qiniu.dyl.fit/Interview/ApplicationEvent-Subclass.jpg)
+![ApplicationEvent-Subclass](https://qiniu.xinghe.fit/Interview/ApplicationEvent-Subclass.jpg)
 
 ##### 事件监听者角色
 
@@ -808,7 +808,7 @@ if(mappedHandler.getHandler() instanceof MultiActionController){
 
 装饰者模式可以动态地给对象添加一些额外的属性或行为。相比于使用继承，装饰者模式更加灵活。简单点儿说就是当我们需要修改原有的功能，但我们又不愿直接去修改原有的代码时，设计一个Decorator套在原有代码外面。其实在 JDK 中就有很多地方用到了装饰者模式，比如 `InputStream`家族，`InputStream` 类下有 `FileInputStream` (读取文件)、`BufferedInputStream` (增加缓存,使读取文件速度大大提升)等子类都在不修改`InputStream` 代码的情况下扩展了它的功能。
 
-![装饰者模式示意图](https://qiniu.dyl.fit/Interview/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
+![装饰者模式示意图](https://qiniu.xinghe.fit/Interview/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png)
 
 Spring 中配置 DataSource 的时候，DataSource 可能是不同的数据库和数据源。我们能否根据客户的需求在少修改原有类的代码下动态切换不同的数据源？这个时候就要用到装饰者模式(这一点我自己还没太理解具体原理)。Spring 中用到的包装器模式在类名上含有 `Wrapper`或者 `Decorator`。这些类基本上都是动态地给一个对象添加一些额外的职责
 
@@ -976,7 +976,7 @@ Spring 框架中，事务管理相关最重要的 3 个接口如下：
 
 **`PlatformTransactionManager` 接口的具体实现如下:**
 
-![img](https://qiniu.dyl.fit/Interview/PlatformTransactionManager.bfc04603.png)
+![img](https://qiniu.xinghe.fit/Interview/PlatformTransactionManager.bfc04603.png)
 
 `PlatformTransactionManager`接口中定义了三个方法：
 
@@ -1264,7 +1264,7 @@ Class B {
 
 更多关于事务传播行为的内容请看这篇文章：[《太难了~面试官让我结合案例讲讲自己对 Spring 事务传播行为的理解。》open in new window](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247486668&idx=2&sn=0381e8c836442f46bdc5367170234abb&chksm=cea24307f9d5ca11c96943b3ccfa1fc70dc97dd87d9c540388581f8fe6d805ff548dff5f6b5b&token=1776990505&lang=zh_CN#rd)
 
-![七种事务传播行为](https://qiniu.dyl.fit/Interview/%E4%B8%83%E7%A7%8D%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png)
+![七种事务传播行为](https://qiniu.xinghe.fit/Interview/%E4%B8%83%E7%A7%8D%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA.png)
 
 ##### 事务隔离级别
 
@@ -1360,7 +1360,7 @@ public interface TransactionDefinition {
 
 这些规则定义了哪些异常会导致事务回滚而哪些不会。默认情况下，事务只有遇到运行期异常（`RuntimeException` 的子类）时才会回滚，`Error` 也会导致事务回滚，但是，在遇到检查型（Checked）异常时不会回滚。
 
-![img](https://qiniu.dyl.fit/Interview/roollbackFor.14ef1320.png)
+![img](https://qiniu.xinghe.fit/Interview/roollbackFor.14ef1320.png)
 
 如果你想要回滚你定义的特定的异常类型的话，可以这样：
 
@@ -1584,7 +1584,7 @@ Spring Security 重要的是实战，这里仅对小部分知识点进行总结�
 
 ### 有哪些控制请求访问权限的方法？
 
-![img](https://qiniu.dyl.fit/Interview/image-20220728201854641.png)
+![img](https://qiniu.xinghe.fit/Interview/image-20220728201854641.png)
 
 - `permitAll()` ：无条件允许任何形式访问，不管你登录还是没有登录。
 - `anonymous()` ：允许匿名访问，也就是没有登录才可以访问。
@@ -1622,7 +1622,7 @@ public interface PasswordEncoder {
 }
 ```
 
-![img](https://qiniu.dyl.fit/Interview/image-20220728183540954.png)
+![img](https://qiniu.xinghe.fit/Interview/image-20220728183540954.png)
 
 官方推荐使用基于 bcrypt 强哈希函数的加密算法实现类。
 

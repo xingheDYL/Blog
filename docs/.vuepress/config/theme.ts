@@ -4,11 +4,11 @@ import sidebar from "./sidebar";
 
 
 export default hopeTheme({
-  hostname: "https://xingheblog.dyl.fit",
+  hostname: "https://xingheblog.xinghe.fit",
 
   author: {
     name: "DYL",
-    url: "https://xinghe.dyl.fit",
+    url: "https://xinghe.xinghe.fit",
   },
 
   // iconAssets: "iconfont",

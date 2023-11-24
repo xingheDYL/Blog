@@ -16,7 +16,7 @@ Java 集合，主要是由两大接口派生而来：一个是 `Collection`接�
 
 Java 集合框架如下图所示：
 
-![Java 集合框架](https://qiniu.dyl.fit/Interview%2Fjava-collection-hierarchy.png)
+![Java 集合框架](https://qiniu.xinghe.fit/Interview%2Fjava-collection-hierarchy.png)
 
 > 注：图中只列举了主要的继承派生关系，并没有列举所有关系。比方省略了`AbstractList`, `NavigableSet`等抽象类以及其他的一些辅助类，如想深入了解，可自行查看源码。
 
@@ -90,11 +90,11 @@ Java 集合框架如下图所示：
 
 > 另外推荐一篇把双向链表讲清楚的文章：[http://juejin.cn/post/6844903648154271757open in new window](http://juejin.cn/post/6844903648154271757)
 
-![双向链表](https://qiniu.dyl.fit/Interview/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png)
+![双向链表](https://qiniu.xinghe.fit/Interview/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png)
 
 **双向循环链表：** 最后一个节点的 next 指向 head，而 head 的 prev 指向最后一个节点，构成一个环。
 
-![双向循环链表](https://qiniu.dyl.fit/Interview/%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.png)
+![双向循环链表](https://qiniu.xinghe.fit/Interview/%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.png)
 
 **补充内容:RandomAccess 接口**
 
@@ -382,7 +382,7 @@ Output：
 
 `TreeMap` 和`HashMap` 都继承自`AbstractMap` ，但是需要注意的是`TreeMap`它还实现了`NavigableMap`接口和`SortedMap` 接口。
 
-![qiniu](https://qiniu.dyl.fit/Interview/treemap_hierarchy.png)
+![qiniu](https://qiniu.xinghe.fit/Interview/treemap_hierarchy.png)
 
 实现 `NavigableMap` 接口让 `TreeMap` 有了对集合内元素的搜索的能力。
 
@@ -528,13 +528,13 @@ static int hash(int h) {
 
 所谓 **“拉链法”** 就是：将链表和数组相结合。也就是说创建一个链表数组，数组中每一格就是一个链表。若遇到哈希冲突，则将冲突的值加到链表中即可。
 
-![jdk1.8之前的内部结构-HashMap](https://qiniu.dyl.fit/Interview/jdk1.7_hashmap.png)
+![jdk1.8之前的内部结构-HashMap](https://qiniu.xinghe.fit/Interview/jdk1.7_hashmap.png)
 
 ##### JDK1.8 之后
 
 相比于之前的版本， JDK1.8 之后在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）时，将链表转化为红黑树，以减少搜索时间。
 
-![jdk1.8之后的内部结构-HashMap](https://qiniu.dyl.fit/Interview/jdk1.8_hashmap.png)
+![jdk1.8之后的内部结构-HashMap](https://qiniu.xinghe.fit/Interview/jdk1.8_hashmap.png)
 
 > TreeMap、TreeSet 以及 JDK1.8 之后的 HashMap 底层都用到了红黑树。红黑树就是为了解决二叉查找树的缺陷，因为二叉查找树在某些情况下会退化成一个线性结构。
 
@@ -567,19 +567,19 @@ static int hash(int h) {
 
 **Hashtable:**
 
-![Hashtable全表锁](https://qiniu.dyl.fit/Interview/jdk1.7_hashmap.png)
+![Hashtable全表锁](https://qiniu.xinghe.fit/Interview/jdk1.7_hashmap.png)
 
 http://www.cnblogs.com/chengxiao/p/6842045.html>
 
 **JDK1.7 的 ConcurrentHashMap：**
 
-![JDK1.7的ConcurrentHashMap](https://qiniu.dyl.fit/Interview/java7_concurrenthashmap.png)
+![JDK1.7的ConcurrentHashMap](https://qiniu.xinghe.fit/Interview/java7_concurrenthashmap.png)
 
 http://www.cnblogs.com/chengxiao/p/6842045.html>
 
 **JDK1.8 的 ConcurrentHashMap：**
 
-![Java8 ConcurrentHashMap 存储结构（图片来自 javadoop）](https://qiniu.dyl.fit/Interview/java8_concurrenthashmap.png)
+![Java8 ConcurrentHashMap 存储结构（图片来自 javadoop）](https://qiniu.xinghe.fit/Interview/java8_concurrenthashmap.png)
 
 JDK1.8 的 `ConcurrentHashMap` 不再是 **Segment 数组 + HashEntry 数组 + 链表**，而是 **Node 数组 + 链表 / 红黑树**。不过，Node 只能用于链表的情况，红黑树的情况需要使用 **`TreeNode`**。当冲突链表达到一定长度时，链表会转换成红黑树。
 
@@ -587,7 +587,7 @@ JDK1.8 的 `ConcurrentHashMap` 不再是 **Segment 数组 + HashEntry 数组 + �
 
 ##### JDK1.7
 
-![JDK1.7的ConcurrentHashMap](https://qiniu.dyl.fit/Interview/java7_concurrenthashmap.png)
+![JDK1.7的ConcurrentHashMap](https://qiniu.xinghe.fit/Interview/java7_concurrenthashmap.png)
 
 首先将数据分为一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据时，其他段的数据也能被其他线程访问。
 
@@ -604,7 +604,7 @@ static class Segment<K,V> extends ReentrantLock implements Serializable {
 
 ##### JDK1.8
 
-![Java8 ConcurrentHashMap 存储结构](https://qiniu.dyl.fit/Interview/java8_concurrenthashmap.png)
+![Java8 ConcurrentHashMap 存储结构](https://qiniu.xinghe.fit/Interview/java8_concurrenthashmap.png)
 
 `ConcurrentHashMap` 取消了 `Segment` 分段锁，采用 CAS 和 `synchronized` 来保证并发安全。数据结构跟 HashMap1.8 的结构类似，数组+链表/红黑二叉树。Java 8 在链表长度超过一定阈值（8）时将链表（寻址时间复杂度为 O(N)）转换为红黑树（寻址时间复杂度为 O(log(N))）
 

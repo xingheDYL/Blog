@@ -18,7 +18,7 @@ tag:
 
 > 我们的愿景是成为 MyBatis 最好的搭档，就像 [魂斗罗](https://baomidou.com/img/contra.jpg) 中的 1P、2P，基友搭配，效率翻倍。
 
-![img](https://qiniu.dyl.fit/relationship-with-mybatis.png)
+![img](https://qiniu.xinghe.fit/relationship-with-mybatis.png)
 
 ### 2.特性
 
@@ -45,7 +45,7 @@ tag:
 
 ###  4.框架结构
 
-<img src="https://qiniu.dyl.fit/mybatis-plus-framework.jpg" alt="framework" style="zoom:50%;" />
+<img src="https://qiniu.xinghe.fit/mybatis-plus-framework.jpg" alt="framework" style="zoom:50%;" />
 
 ### 5.官方地址
 
@@ -102,13 +102,13 @@ INSERT INTO user (id, name, age, email) VALUES
 
 使用 Spring Initializer 快速初始化一个 Spring Boot 工程
 
-<img src="https://qiniu.dyl.fit/image-20220519140839640.png" alt="image-20220519140839640" style="zoom:80%;" />
+<img src="https://qiniu.xinghe.fit/image-20220519140839640.png" alt="image-20220519140839640" style="zoom:80%;" />
 
-<img src="https://qiniu.dyl.fit/image-20220519141335981.png" alt="image-20220519141335981" style="zoom:80%;" />
+<img src="https://qiniu.xinghe.fit/image-20220519141335981.png" alt="image-20220519141335981" style="zoom:80%;" />
 
-<img src="https://qiniu.dyl.fit/image-20220519141737405.png" alt="image-20220519141737405" style="zoom:80%;" />
+<img src="https://qiniu.xinghe.fit/image-20220519141737405.png" alt="image-20220519141737405" style="zoom:80%;" />
 
-<img src="https://qiniu.dyl.fit/image-20220519141849937.png" alt="image-20220519141849937" style="zoom:80%;" />
+<img src="https://qiniu.xinghe.fit/image-20220519141849937.png" alt="image-20220519141849937" style="zoom:80%;" />
 
 #### 3.2 引入依赖
 
@@ -124,7 +124,7 @@ INSERT INTO user (id, name, age, email) VALUES
 
 #### 3.3 安装 Lombok 插件
 
-<img src="https://qiniu.dyl.fit/image-20220519143257305.png" alt="image-20220519143257305" style="zoom:80%;" />
+<img src="https://qiniu.xinghe.fit/image-20220519143257305.png" alt="image-20220519143257305" style="zoom:80%;" />
 
 ### 4.编写代码
 
@@ -237,7 +237,7 @@ class MyBatisPlusTest {
 >
 >如果 IDEA 在 userMapper 处报错
 >
->![image-20230713140847015](https://qiniu.dyl.fit/image-20230713140847015.png)
+>![image-20230713140847015](https://qiniu.xinghe.fit/image-20230713140847015.png)
 >
 >是因为找不到注入的对象，因为类是动态创建的，但是程序可以正确的执行。
 >
@@ -247,7 +247,7 @@ class MyBatisPlusTest {
 
 **控制台打印查询结果**
 
-![image-20220519150454211](https://qiniu.dyl.fit/image-20220519150454211.png)
+![image-20220519150454211](https://qiniu.xinghe.fit/image-20220519150454211.png)
 
 #### 4.6 添加日志
 
@@ -260,7 +260,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ```
 
-![image.png](https://qiniu.dyl.fit/image-20220519150454213.png)
+![image.png](https://qiniu.xinghe.fit/image-20220519150454213.png)
 
 ## 三、基本 CRUD
 
@@ -358,7 +358,7 @@ void testInsert(){
     User user = new User();
     user.setName("dyl");
     user.setAge(21);
-    user.setEmail("dyl@dyl.fit");
+    user.setEmail("dyl@xinghe.fit");
     int result = userMapper.insert(user);
     System.out.println(result > 0 ? "添加成功！" : "添加失败！");
     System.out.println("受影响的行数为：" + result);
@@ -742,11 +742,11 @@ public void test(){
 
 - 我们将表 user 更名为 t_user，测试查询功能
 
-  ![image-20220520093844842](https://qiniu.dyl.fit/image-20220520093844842.png)
+  ![image-20220520093844842](https://qiniu.xinghe.fit/image-20220520093844842.png)
 
 - 程序抛出异常，**Table 'mybatis_plus.user' doesn't exist**，因为现在的表名为 t_user，而默认操作的表名和实体类型的类名一致，即 user 表
 
-  ![image-20220520094126411](https://qiniu.dyl.fit/image-20220520094126411.png)
+  ![image-20220520094126411](https://qiniu.xinghe.fit/image-20220520094126411.png)
 
 #### 1.2 解决问题
 
@@ -789,13 +789,13 @@ mybatis-plus:
 
 - 我们实体类中的属性 id 改为 uid，将表中的字段 id 也改为 uid，测试添加功能
 
-  ![image-20220520100939157](https://qiniu.dyl.fit/image-20220520100939157.png)
+  ![image-20220520100939157](https://qiniu.xinghe.fit/image-20220520100939157.png)
 
-  ![image-20220520100715109](https://qiniu.dyl.fit/image-20220520100715109.png)
+  ![image-20220520100715109](https://qiniu.xinghe.fit/image-20220520100715109.png)
 
 - 程序抛出异常，**Field 'uid' doesn't have a default value**，说明 MyBatis-Plus 没有将 uid 作为主键赋值
 
-  ![image-20220520101317761](https://qiniu.dyl.fit/image-20220520101317761.png)
+  ![image-20220520101317761](https://qiniu.xinghe.fit/image-20220520101317761.png)
 
 #### 2.2 解决问题
 
@@ -820,7 +820,7 @@ public class User {
 
 > 若实体类中主键对应的属性为 id，而表中表示主键的字段为 uid，此时若只在属性 id 上添加注解 @TableId，则抛出异常**Unknown column 'id' in 'field list'**，即 MyBatis-Plus 仍然会将id作为表的主键操作，而表中表示主键的是字段 uid 此时需要通过@TableId 注解的 value 属性，指定表中的主键字段，@TableId("uid")或 @TableId(value="uid")
 
-![image-20220520103030977](https://qiniu.dyl.fit/image-20220520103030977.png)
+![image-20220520103030977](https://qiniu.xinghe.fit/image-20220520103030977.png)
 
 #### 2.4 @TableId的type属性
 
@@ -865,7 +865,7 @@ mybatis-plus:
 
 单表数据拆分有两种方式：**垂直分表和水平分表**。示意图如下：
 
-![分表](https://qiniu.dyl.fit/%E5%88%86%E8%A1%A8.png)
+![分表](https://qiniu.xinghe.fit/%E5%88%86%E8%A1%A8.png)
 
 ###### 垂直分表
 
@@ -907,7 +907,7 @@ a、**核心思想：**
 
 12 bit 作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID）。
 
-![雪花算法](https://qiniu.dyl.fit/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95.png)
+![雪花算法](https://qiniu.xinghe.fit/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95.png)
 
 b、**优点**：整体上按照时间自增排序，并且整个分布式系统内不会产生 ID 碰撞，并且效率较高。
 
@@ -968,11 +968,11 @@ public class User {
 
 ##### a、数据库中创建逻辑删除状态列，设置默认值为0
 
-![image-20220520134529809](https://qiniu.dyl.fit/image-20220520134529809.png)
+![image-20220520134529809](https://qiniu.xinghe.fit/image-20220520134529809.png)
 
 ##### b、实体类中添加逻辑删除属性
 
-![image-20220520134636112](https://qiniu.dyl.fit/image-20220520134636112.png)
+![image-20220520134636112](https://qiniu.xinghe.fit/image-20220520134636112.png)
 
 ##### c、测试删除功能，真正执行的是修改
 
@@ -984,17 +984,17 @@ public void testDeleteById(){
 }
 ```
 
-![image-20220520135637388](https://qiniu.dyl.fit/image-20220520135637388.png)
+![image-20220520135637388](https://qiniu.xinghe.fit/image-20220520135637388.png)
 
 ##### d、此时执行查询方法，查询的结果为自动添加条件 `is_deleted=0`
 
-![image-20220520140036445](https://qiniu.dyl.fit/image-20220520140036445.png)
+![image-20220520140036445](https://qiniu.xinghe.fit/image-20220520140036445.png)
 
 ## 五、条件构造器
 
 ### 1.Wrapper介绍
 
-![image-20220521092812125](https://qiniu.dyl.fit/image-20220521092812125.png)
+![image-20220521092812125](https://qiniu.xinghe.fit/image-20220521092812125.png)
 
 - `Wrapper`：条件构造抽象类，最顶端父类
 - `AbstractWrapper `：用于查询条件封装，生成 sql 的 where 条件
@@ -1379,7 +1379,7 @@ public void testProduct01(){
 
 ##### f、执行结果
 
-![image-20220521225803162](https://qiniu.dyl.fit/image-20220521225803162.png)
+![image-20220521225803162](https://qiniu.xinghe.fit/image-20220521225803162.png)
 
 #### 3.4 乐观锁解决问题
 
@@ -1471,7 +1471,7 @@ void testProduct01(){
 }
 ```
 
-![image-20220521230448577](https://qiniu.dyl.fit/image-20220521230448577.png)
+![image-20220521230448577](https://qiniu.xinghe.fit/image-20220521230448577.png)
 
 
 ## 七、通用枚举
@@ -1480,7 +1480,7 @@ void testProduct01(){
 
 ### 1、数据库表添加字段 `sex`
 
-![image-20220521231317777](https://qiniu.dyl.fit/image-20220521231317777.png)
+![image-20220521231317777](https://qiniu.xinghe.fit/image-20220521231317777.png)
 
 ### 2、创建通用枚举类型
 
@@ -1721,7 +1721,7 @@ class TestDatasourceApplicationTests {
 }
 ```
 
-![image-20220522113049945](https://qiniu.dyl.fit/image-20220522113049945.png)
+![image-20220522113049945](https://qiniu.xinghe.fit/image-20220522113049945.png)
 
 ## 九、MyBatisX 插件
 
@@ -1735,7 +1735,7 @@ class TestDatasourceApplicationTests {
 
 > 打开IDEA，File-> Setteings->Plugins->MyBatisX，搜索栏搜索 MyBatisX 然后安装。
 
-![image-20220522115718361](https://qiniu.dyl.fit/image-20220522115718361.png)
+![image-20220522115718361](https://qiniu.xinghe.fit/image-20220522115718361.png)
 
 ### 2.快速生成代码
 
@@ -1769,35 +1769,35 @@ spring:
 
 #### 2.3 在IDEA中与数据库建立链接
 
-![image-20220522120758740](https://qiniu.dyl.fit/image-20220522120758740.png)
+![image-20220522120758740](https://qiniu.xinghe.fit/image-20220522120758740.png)
 
 #### 2.4 填写数据库信息并保存
 
-![image-20220522121434468](https://qiniu.dyl.fit/image-20220522121434468.png)
+![image-20220522121434468](https://qiniu.xinghe.fit/image-20220522121434468.png)
 
 #### 2.5 找到我们需要生成的表点击右键
 
-![image-20220522121613909](https://qiniu.dyl.fit/image-20220522121613909.png)
+![image-20220522121613909](https://qiniu.xinghe.fit/image-20220522121613909.png)
 
 #### 2.6 填写完信息以后下一步
 
-![image-20220522122127649](https://qiniu.dyl.fit/image-20220522122127649.png)
+![image-20220522122127649](https://qiniu.xinghe.fit/image-20220522122127649.png)
 
 #### 2.7 继续填写信息
 
-![image-20220522122525598](https://qiniu.dyl.fit/image-20220522122525598.png)
+![image-20220522122525598](https://qiniu.xinghe.fit/image-20220522122525598.png)
 
 #### 2.8 大功告成
 
-![image-20220522122612334](https://qiniu.dyl.fit/image-20220522122612334.png)
+![image-20220522122612334](https://qiniu.xinghe.fit/image-20220522122612334.png)
 
 ### 3.快速生成CRUD
 
 > MyBaitsX 可以根据我们在 Mapper 接口中输入的方法名快速帮我们生成对应的sql语句
 
-![image-20220522123143852](https://qiniu.dyl.fit/image-20220522123143852.png)
+![image-20220522123143852](https://qiniu.xinghe.fit/image-20220522123143852.png)
 
-![image-20220522123202310](https://qiniu.dyl.fit/image-20220522123202310.png)
+![image-20220522123202310](https://qiniu.xinghe.fit/image-20220522123202310.png)
 
 ## 十、致谢
 

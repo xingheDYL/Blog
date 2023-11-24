@@ -25,7 +25,7 @@ mysql> select * from T where ID=10；
 
 下面我给出的是MySQL的基本架构示意图，从中你可以清楚地看到SQL语句在MySQL的各个功能模块中的执行过程。
 
-![MySQL的逻辑架构图](https://qiniu.dyl.fit/Interview/0d2070e8f84c4801adbfa03bda1f98d9.png)
+![MySQL的逻辑架构图](https://qiniu.xinghe.fit/Interview/0d2070e8f84c4801adbfa03bda1f98d9.png)
 
 :::center
 MySQL的逻辑架构图
@@ -60,7 +60,7 @@ mysql -h$ip -P$port -u$user -p
 
 连接完成后，如果你没有后续的动作，这个连接就处于空闲状态，你可以在show processlist命令中看到它。文本中这个图是show processlist的结果，其中的Command列显示为“Sleep”的这一行，就表示现在系统里面有一个空闲连接。
 
-![img](https://qiniu.dyl.fit/Interview/f2da4aa3a672d48ec05df97b9f992fed.png)
+![img](https://qiniu.xinghe.fit/Interview/f2da4aa3a672d48ec05df97b9f992fed.png)
 
 客户端如果太长时间没动静，连接器就会自动将它断开。这个时间是由参数wait_timeout控制的，默认值是8小时。
 如果在连接被断开之后，客户端再次发送请求的话，就会收到一个错误提醒： Lost connection to MySQL server during query。这时候如果你要继续，就需要重连，然后再执行请求了。
@@ -189,7 +189,7 @@ mysql> update T set c=c+1 where ID=2;
 
 前面我有跟你介绍过SQL语句基本的执行链路，这里我再把那张图拿过来，你也可以先简单看看这个图回顾下。首先，可以确定的说，查询语句的那一套流程，更新语句也是同样会走一遍。
 
-![img](https://qiniu.dyl.fit/Interview/0d2070e8f84c4801adbfa03bda1f98d9.png)
+![img](https://qiniu.xinghe.fit/Interview/0d2070e8f84c4801adbfa03bda1f98d9.png)
 
 :::center
 MySQL的逻辑架构图
@@ -226,7 +226,7 @@ MySQL的逻辑架构图
 
 与此类似，InnoDB的redo log是固定大小的，比如可以配置为一组4个文件，每个文件的大小是1GB，那么这块“粉板”总共就可以记录4GB的操作。从头开始写，写到末尾就又回到开头循环写，如下面这个图所示。
 
-![img](https://qiniu.dyl.fit/Interview/b075250cad8d9f6c791a52b6a600f69c.jpg)
+![img](https://qiniu.xinghe.fit/Interview/b075250cad8d9f6c791a52b6a600f69c.jpg)
 
 write pos是当前记录的位置，一边写一边后移，写到第3号文件末尾后就回到0号文件开头。checkpoint是当前要擦除的位置，也是往后推移并且循环的，擦除记录前要把记录更新到数据文件。
 
@@ -260,7 +260,7 @@ write pos和checkpoint之间的是“粉板”上还空着的部分，可以用�
 
 这里我给出这个update语句的执行流程图，图中浅色框表示是在InnoDB内部执行的，深色框表示是在执行器中执行的。
 
-![img](https://qiniu.dyl.fit/Interview/2e5bff4910ec189fe1ee6e2ecc7b4bbe.png)
+![img](https://qiniu.xinghe.fit/Interview/2e5bff4910ec189fe1ee6e2ecc7b4bbe.png)
 
 :::center
 update语句执行流程
@@ -385,7 +385,7 @@ mysql> show variables like 'transaction_isolation';
 
 假设一个值从1被按顺序改成了2、3、4，在回滚日志里面就会有类似下面的记录。
 
-![img](https://qiniu.dyl.fit/Interview/d9c313809e5ac148fc39feff532f0fee.png)
+![img](https://qiniu.xinghe.fit/Interview/d9c313809e5ac148fc39feff532f0fee.png)
 当前值是4，但是在查询这条记录的时候，不同时刻启动的事务会有不同的read-view。如图中看到的，在视图A、B、C里面，这一个记录的值分别是1、2、4，同一条记录在系统中可以存在多个版本，就是数据库的多版本并发控制（MVCC)。对于read-view A，要得到1，就必须将当前值依次执行图中所有的回滚操作得到。
 
 同时你会发现，即使现在有另外一个事务正在将4改成5，这个事务跟read-view A、B、C对应的事务是不会冲突的。
@@ -465,7 +465,7 @@ select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx
 
 假设，你现在维护着一个身份证信息和姓名的表，需要根据身份证号查找对应的名字，这时对应的哈希索引的示意图如下所示：
 
-![img](https://qiniu.dyl.fit/Interview/0c62b601afda86fe5d0fe57346ace957.png)
+![img](https://qiniu.xinghe.fit/Interview/0c62b601afda86fe5d0fe57346ace957.png)
 
 图1 哈希表示意图
 
@@ -479,7 +479,7 @@ select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx
 
 而**有序数组在等值查询和范围查询场景中的性能就都非常优秀**。还是上面这个根据身份证号查名字的例子，如果我们使用有序数组来实现的话，示意图如下所示：
 
-![img](https://qiniu.dyl.fit/Interview/bfc907a92f99cadf5493cf0afac9ca49.png)
+![img](https://qiniu.xinghe.fit/Interview/bfc907a92f99cadf5493cf0afac9ca49.png)
 
 图2 有序数组示意图
 
@@ -493,7 +493,7 @@ select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx
 
 二叉搜索树也是课本里的经典数据结构了。还是上面根据身份证号查名字的例子，如果我们用二叉搜索树来实现的话，示意图如下所示：
 
-![img](https://qiniu.dyl.fit/Interview/04fb9d24065635a6a637c25ba9ddde68.png)
+![img](https://qiniu.xinghe.fit/Interview/04fb9d24065635a6a637c25ba9ddde68.png)
 
 图3 二叉搜索树示意图
 
@@ -541,7 +541,7 @@ index (k))engine=InnoDB;
 
 表中R1~R5的(ID,k)值分别为(100,1)、(200,2)、(300,3)、(500,5)和(600,6)，两棵树的示例示意图如下。
 
-![img](https://qiniu.dyl.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
+![img](https://qiniu.xinghe.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
 
 :::center
 图4 InnoDB的索引组织结构
@@ -691,7 +691,7 @@ engine=InnoDB;
 insert into T values(100,1, 'aa'),(200,2,'bb'),(300,3,'cc'),(500,5,'ee'),(600,6,'ff'),(700,7,'gg');
 ```
 
-![img](https://qiniu.dyl.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
+![img](https://qiniu.xinghe.fit/Interview/dcda101051f28502bd5c4402b292e38d.png)
 
 :::center
 图1 InnoDB的索引组织结构
@@ -750,7 +750,7 @@ CREATE TABLE `tuser` (
 
 为了直观地说明这个概念，我们用（name，age）这个联合索引来分析。
 
-![img](https://qiniu.dyl.fit/Interview/89f74c631110cfbc83298ef27dcd6370.jpg)
+![img](https://qiniu.xinghe.fit/Interview/89f74c631110cfbc83298ef27dcd6370.jpg)
 
 :::center
 图2（name，age）索引示意图
@@ -796,13 +796,13 @@ mysql> select * from tuser where name like '张%' and age=10 and ismale=1;
 
 图3和图4，是这两个过程的执行流程图。
 
-![img](https://qiniu.dyl.fit/Interview/b32aa8b1f75611e0759e52f5915539ac.jpg)
+![img](https://qiniu.xinghe.fit/Interview/b32aa8b1f75611e0759e52f5915539ac.jpg)
 
 :::center
 图3 无索引下推执行流程
 :::
 
-![img](https://qiniu.dyl.fit/Interview/76e385f3df5a694cc4238c7b65acfe1b.jpg)
+![img](https://qiniu.xinghe.fit/Interview/76e385f3df5a694cc4238c7b65acfe1b.jpg)
 
 :::center
 图4 索引下推执行流程
@@ -893,7 +893,7 @@ PS：如果你在面试中，曾有过被MySQL相关问题难住的经历，也�
 
 如果时间顺序上是先备份账户余额表(u_account)，然后用户购买，然后备份用户课程表(u_course)，会怎么样呢？你可以看一下这个图：
 
-![img](https://qiniu.dyl.fit/Interview/cbfd4a0bbb1210792064bcea4e49b0cd.png)
+![img](https://qiniu.xinghe.fit/Interview/cbfd4a0bbb1210792064bcea4e49b0cd.png)
 
 :::center
 图1 业务和备份状态图
@@ -949,7 +949,7 @@ MySQL里面表级别的锁有两种：一种是表锁，一种是元数据锁（
 
 > 备注：这里的实验环境是MySQL 5.6。
 
-![img](https://qiniu.dyl.fit/Interview/7cf6a3bf90d72d1f0fc156ececdfb0ce.jpg)
+![img](https://qiniu.xinghe.fit/Interview/7cf6a3bf90d72d1f0fc156ececdfb0ce.jpg)
 
 我们可以看到session A先启动，这时候会对表t加一个MDL读锁。由于session B需要的也是MDL读锁，因此可以正常执行。
 

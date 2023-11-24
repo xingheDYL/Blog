@@ -415,7 +415,7 @@ System.out.println(webSite.getUrl());//https://javaguide.cn/
 
 Spring 读取配置文件也是有优先级的，直接上图：
 
-![img](https://qiniu.dyl.fit/Interview/823d9ef9-2f6d-4533-9c31-1ab278115937.jpg)
+![img](https://qiniu.xinghe.fit/Interview/823d9ef9-2f6d-4533-9c31-1ab278115937.jpg)
 
 ### 13、常用的 Bean 映射工具有哪些？ 
 
@@ -646,7 +646,7 @@ com.pdai.demospringbootstarter.DemoAutoConfiguration
 
 - install
 
-![img](https://qiniu.dyl.fit/Interview/springboot-starter-demo-2.png)
+![img](https://qiniu.xinghe.fit/Interview/springboot-starter-demo-2.png)
 
 ### 22、为什么需要spring-boot-maven-plugin？
 
@@ -735,7 +735,7 @@ public @interface SpringBootConfiguration {
 - `@Configuration`：允许在上下文中注册额外的 bean 或导入其他配置类
 - `@ComponentScan`： 扫描被`@Component` (`@Service`,`@Controller`)注解的 bean，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些 bean。如下图所示，容器中将排除`TypeExcludeFilter`和`AutoConfigurationExcludeFilter`。
 
-![img](https://qiniu.dyl.fit/Interview/bcc73490afbe4c6ba62acde6a94ffdfd~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/bcc73490afbe4c6ba62acde6a94ffdfd~tplv-k3u1fbpfcp-watermark.image)
 
 `@EnableAutoConfiguration` 是实现自动装配的重要注解，我们以这个注解入手。
 
@@ -801,7 +801,7 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 
 该方法调用链如下：
 
-![img](https://qiniu.dyl.fit/Interview/tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/tplv-k3u1fbpfcp-watermark.image)
 
 现在我们结合`getAutoConfigurationEntry()`的源码来详细分析一下：
 
@@ -833,13 +833,13 @@ AutoConfigurationEntry getAutoConfigurationEntry(AutoConfigurationMetadata autoC
 
 判断自动装配开关是否打开。默认`spring.boot.enableautoconfiguration=true`，可在 `application.properties` 或 `application.yml` 中设置
 
-![img](https://qiniu.dyl.fit/Interview/77aa6a3727ea4392870f5cccd09844ab~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/77aa6a3727ea4392870f5cccd09844ab~tplv-k3u1fbpfcp-watermark.image)
 
 **第 2 步** ：
 
 用于获取`EnableAutoConfiguration`注解中的 `exclude` 和 `excludeName`。
 
-![img](https://qiniu.dyl.fit/Interview/3d6ec93bbda1453aa08c52b49516c05a~tplv-k3u1fbpfcp-zoom-1.image)
+![img](https://qiniu.xinghe.fit/Interview/3d6ec93bbda1453aa08c52b49516c05a~tplv-k3u1fbpfcp-zoom-1.image)
 
 **第 3 步**
 
@@ -849,11 +849,11 @@ AutoConfigurationEntry getAutoConfigurationEntry(AutoConfigurationMetadata autoC
 spring-boot/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories
 ```
 
-![img](https://qiniu.dyl.fit/Interview/58c51920efea4757aa1ec29c6d5f9e36.image)
+![img](https://qiniu.xinghe.fit/Interview/58c51920efea4757aa1ec29c6d5f9e36.image)
 
 从下图可以看到这个文件的配置内容都被我们读取到了。`XXXAutoConfiguration`的作用就是按需加载组件。
 
-![img](https://qiniu.dyl.fit/Interview/94d6e1a060ac41db97043e1758789026.image)
+![img](https://qiniu.xinghe.fit/Interview/94d6e1a060ac41db97043e1758789026.image)
 
 不光是这个依赖下的`META-INF/spring.factories`被读取到，所有 Spring Boot Starter 下的`META-INF/spring.factories`都会被读取到。
 
@@ -861,7 +861,7 @@ spring-boot/spring-boot-project/spring-boot-autoconfigure/src/main/resources/MET
 
 如果，我们自己要创建一个 Spring Boot Starter，这一步是必不可少的。
 
-![img](https://qiniu.dyl.fit/Interview/68fa66aeee474b0385f94d23bcfe1745.image)
+![img](https://qiniu.xinghe.fit/Interview/68fa66aeee474b0385f94d23bcfe1745.image)
 
 **第 4 步** ：
 
@@ -905,28 +905,28 @@ public class RabbitAutoConfiguration {
 
 第一步，创建`threadpool-spring-boot-starter`工程
 
-![img](https://qiniu.dyl.fit/Interview/1ff0ebe7844f40289eb60213af72c5a6~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/1ff0ebe7844f40289eb60213af72c5a6~tplv-k3u1fbpfcp-watermark.image)
 
 第二步，引入 Spring Boot 相关依赖
 
-![img](https://qiniu.dyl.fit/Interview/5e14254276604f87b261e5a80a354cc0~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/5e14254276604f87b261e5a80a354cc0~tplv-k3u1fbpfcp-watermark.image)
 
 第三步，创建`ThreadPoolAutoConfiguration`
 
-![img](https://qiniu.dyl.fit/Interview/1843f1d12c5649fba85fd7b4e4a59e39~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/1843f1d12c5649fba85fd7b4e4a59e39~tplv-k3u1fbpfcp-watermark.image)
 
 第四步，在`threadpool-spring-boot-starter`工程的 resources 包下创建`META-INF/spring.factories`文件
 
-![img](https://qiniu.dyl.fit/Interview/97b738321f1542ea8140484d6aaf0728~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/97b738321f1542ea8140484d6aaf0728~tplv-k3u1fbpfcp-watermark.image)
 
 最后新建工程引入`threadpool-spring-boot-starter`
 
-![img](https://qiniu.dyl.fit/Interview/edcdd8595a024aba85b6bb20d0e3fed4~tplv-k3u1fbpfcp-watermark.image)
+![img](https://qiniu.xinghe.fit/Interview/edcdd8595a024aba85b6bb20d0e3fed4~tplv-k3u1fbpfcp-watermark.image)
 
 测试通过！！！
 
-![img](https://qiniu.dyl.fit/Interview/9a265eea4de742a6bbdbbaa75f437307.image)
+![img](https://qiniu.xinghe.fit/Interview/9a265eea4de742a6bbdbbaa75f437307.image)
 
 #### 总结图
 
-![image-20221004204652195](https://qiniu.dyl.fit/Interview/image-20221004204652195.png)
+![image-20221004204652195](https://qiniu.xinghe.fit/Interview/image-20221004204652195.png)

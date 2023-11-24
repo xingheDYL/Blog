@@ -155,7 +155,7 @@ tag:
 
 将 Maven 整合进来，IDEA 中 **设置** 和 **新项目设置** 中的 Maven 都要设定。
 
-![Maven 设置](https://qiniu.dyl.fit/maven%E8%AE%BE%E7%BD%AE.png)
+![Maven 设置](https://qiniu.xinghe.fit/maven%E8%AE%BE%E7%BD%AE.png)
 
 ## 2、HelloWorld
 
@@ -1160,7 +1160,7 @@ public class HelloWorld {
 
 图示：
 
-![使用 SLF4J](https://qiniu.dyl.fit/%E4%BD%BF%E7%94%A8%20SLF4J.png)
+![使用 SLF4J](https://qiniu.xinghe.fit/%E4%BD%BF%E7%94%A8%20SLF4J.png)
 
 
 
@@ -1172,7 +1172,7 @@ A系统（slf4j + logback）: Spring（commons-logging）、Hibernate（jboss-lo
 
 统一日志记录，即使是别的框架和我一起统一使用 **slf4j** 进行输出？
 
-![遗留系统使用 SLF4J](https://qiniu.dyl.fit/%E9%81%97%E7%95%99%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%20SLF4J.png)
+![遗留系统使用 SLF4J](https://qiniu.xinghe.fit/%E9%81%97%E7%95%99%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%20SLF4J.png)
 
 **如何让系统中所有的日志都统一到 slf4j？**
 
@@ -1193,7 +1193,7 @@ SpringBoot 使用它来做日志功能。
 
 底层依赖关系：
 
-![日志关系](https://qiniu.dyl.fit/%E6%97%A5%E5%BF%97%E5%85%B3%E7%B3%BB.png)
+![日志关系](https://qiniu.xinghe.fit/%E6%97%A5%E5%BF%97%E5%85%B3%E7%B3%BB.png)
 
 总结：
 
@@ -1212,7 +1212,7 @@ public abstract class LogFactory {
 }
 ```
 
-![日志中间转换包](https://qiniu.dyl.fit/%E6%97%A5%E5%BF%97%E4%B8%AD%E9%97%B4%E8%BD%AC%E6%8D%A2%E5%8C%85.png)
+![日志中间转换包](https://qiniu.xinghe.fit/%E6%97%A5%E5%BF%97%E4%B8%AD%E9%97%B4%E8%BD%AC%E6%8D%A2%E5%8C%85.png)
 
 
 
@@ -1464,7 +1464,7 @@ http://www.webjars.org
 </dependency>
 ```
 
-![webjars](https://qiniu.dyl.fit/webjars.png)
+![webjars](https://qiniu.xinghe.fit/webjars.png)
 
 访问地址：http://localhost:8080/webjars/**jquery/3.5.0/jquery.js**，后面地址要按照依赖里面的包路径，就可以获取到对应的静态资源。
 
@@ -1799,7 +1799,7 @@ spring:
 
 #### 3.1.3 请求映射原理
 
-![请求映射原理](https://qiniu.dyl.fit/%E8%AF%B7%E6%B1%82%E6%98%A0%E5%B0%84%E5%8E%9F%E7%90%86.png)
+![请求映射原理](https://qiniu.xinghe.fit/%E8%AF%B7%E6%B1%82%E6%98%A0%E5%B0%84%E5%8E%9F%E7%90%86.png)
 
 SpringMVC 功能分析都从 org.springframework.web.servlet.`DispatcherServlet.doDispatch()` 方法开始。
 
@@ -1837,11 +1837,11 @@ protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Ex
 }
 ```
 
-![handlerMappings](https://qiniu.dyl.fit/handlerMappings.png)
+![handlerMappings](https://qiniu.xinghe.fit/handlerMappings.png)
 
 `RequestMappingHandlerMapping`：保存了所有 `@RequestMapping`（请求路径）  和 `Handlerg`（`Controller` 的方法） 的映射规则。
 
-![RequestMappingHandlerMapping](https://qiniu.dyl.fit/RequestMappingHandlerMapping.png)
+![RequestMappingHandlerMapping](https://qiniu.xinghe.fit/RequestMappingHandlerMapping.png)
 
 所有的请求映射都在 `HandlerMapping` 中。
 
@@ -1855,7 +1855,7 @@ protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Ex
 
 如果我们需要一些自定义的映射处理，可以通过给容器中放 **HandlerMapping** 来自定义 **HandlerMapping**
 
-![Spring MVC 的运行原理与机制](https://qiniu.dyl.fit/Spring%20MVC%20%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%9C%BA%E5%88%B6.png)
+![Spring MVC 的运行原理与机制](https://qiniu.xinghe.fit/Spring%20MVC%20%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%9C%BA%E5%88%B6.png)
 
 有的时候，比如说同一组 API 有不同的版本如 v1，v2，我们可以在 `Controller` 中写两组mapping（比如 `v1/user`，`v2/user`）。但同时我们也可以放在两个包下，都是 `/user`，这个时候我们就可以自定义 `HandlerMapping`，把 `v1/user` 映射到一个包下的 `/user`，把 `v2/user`映射到另外一个包下的 `/user`。
 
@@ -1931,11 +1931,11 @@ public class ParameterTestController {
 
 以上参数都是在 `ServletRequestMethodArgumentResolver.supportsParameter()` 里判断的：
 
-![supportsParameter](https://qiniu.dyl.fit/supportsParameter.png)
+![supportsParameter](https://qiniu.xinghe.fit/supportsParameter.png)
 
 然后获取请求：
 
-![获取请求](https://qiniu.dyl.fit/%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82.png)
+![获取请求](https://qiniu.xinghe.fit/%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82.png)
 
 #### 3.2.3 复杂参数
 
@@ -1963,9 +1963,9 @@ Map<String, Object> `map`、Model `model`、HttpServletRequest `request` 都可�
     }
 ```
 
-![Model 和 Map 是同一个对象](https://qiniu.dyl.fit/Model%20%E5%92%8C%20Map%20%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1.png)
+![Model 和 Map 是同一个对象](https://qiniu.xinghe.fit/Model%20%E5%92%8C%20Map%20%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1.png)
 
-![defaultModel](https://qiniu.dyl.fit/defaultModel.png)
+![defaultModel](https://qiniu.xinghe.fit/defaultModel.png)
 
 #### 3.2.4 自定义对象参数
 
@@ -2030,7 +2030,7 @@ SpringMVC 处理请求大致是这样的：
 - `HandlerMethodArgumentResolver` ：处理请求方法的参数
 - `HandlerMethodReturnValueHandler`：处理请求方法的返回值
 
-![HandlerMethodReturnValueHandler](https://qiniu.dyl.fit/HandlerMethodReturnValueHandler.png)
+![HandlerMethodReturnValueHandler](https://qiniu.xinghe.fit/HandlerMethodReturnValueHandler.png)
 
 > [详解 SpringMVC 中 Controller 的方法中参数的工作原理](https://www.cnblogs.com/fangjian0423/p/springMVC-request-param-analysis.html)
 
@@ -5053,11 +5053,11 @@ static Stream<String> method() {
 </dependency>
 ```
 
-![Actuator 的 jar 包](https://qiniu.dyl.fit/Actuator%20%E7%9A%84%20jar%20%E5%8C%85.png)
+![Actuator 的 jar 包](https://qiniu.xinghe.fit/Actuator%20%E7%9A%84%20jar%20%E5%8C%85.png)
 
 ### 1.2 1.x 与 2.x 的不同
 
-![1.x 与 2.x 的不同](https://qiniu.dyl.fit/1.x%20%E4%B8%8E%202.x%20%E7%9A%84%E4%B8%8D%E5%90%8C.png)
+![1.x 与 2.x 的不同](https://qiniu.xinghe.fit/1.x%20%E4%B8%8E%202.x%20%E7%9A%84%E4%B8%8D%E5%90%8C.png)
 
 
 
@@ -5157,7 +5157,7 @@ https://github.com/codecentric/spring-boot-admin
 
 - 可以很容易的添加自定义的健康检查机制。
 
-![健康端点](https://qiniu.dyl.fit/%E5%81%A5%E5%BA%B7%E7%AB%AF%E7%82%B9.png)
+![健康端点](https://qiniu.xinghe.fit/%E5%81%A5%E5%BA%B7%E7%AB%AF%E7%82%B9.png)
 
 
 
@@ -5170,7 +5170,7 @@ https://github.com/codecentric/spring-boot-admin
 
 - 添加自定义 **Metrics** 或者扩展已有 **Metrics**。
 
-![指标端点](https://qiniu.dyl.fit/%E6%8C%87%E6%A0%87%E7%AB%AF%E7%82%B9.png)
+![指标端点](https://qiniu.xinghe.fit/%E6%8C%87%E6%A0%87%E7%AB%AF%E7%82%B9.png)
 
 
 
@@ -5523,7 +5523,7 @@ Config data files are considered in the following order:
 
 1. **starter-pom** 引入 **autoconfigurer** 包；
 
-![starter 启动原理](https://qiniu.dyl.fit/starter%20%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86.png)
+![starter 启动原理](https://qiniu.xinghe.fit/starter%20%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86.png)
 
 2. **autoconfigure** 包中配置使用 **META-INF/spring.factories** 中 `EnableAutoConfiguration` 的值，使得项目启动时加载指定的自动配置类；
 3. 编写自动配置类 `xxxAutoConfiguration` -> `xxxxProperties`；
@@ -5613,13 +5613,13 @@ public interface Bootstrapper {
 }
 ```
 
-![容器初始化器](https://qiniu.dyl.fit/%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E5%99%A8.png)
+![容器初始化器](https://qiniu.xinghe.fit/%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E5%99%A8.png)
 
-![img](https://qiniu.dyl.fit/springapplicationRunListener.png)
+![img](https://qiniu.xinghe.fit/springapplicationRunListener.png)
 
 
 
-![监听器](https://qiniu.dyl.fit/%E7%9B%91%E5%90%AC%E5%99%A8.png)
+![监听器](https://qiniu.xinghe.fit/%E7%9B%91%E5%90%AC%E5%99%A8.png)
 
 ```Java
 @FunctionalInterface
