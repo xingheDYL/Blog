@@ -1764,7 +1764,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mybatis_plus?characterEncoding=utf-8&useSSL=false
     username: root
-    password: 132537
+    password: root
 ```
 
 #### 2.3 在IDEA中与数据库建立链接
@@ -1804,5 +1804,3 @@ spring:
 感谢尚硅谷杨博超老师：https://www.bilibili.com/video/BV12R4y157Be?p=1
 
 感谢MyBatis-Plus作者苞米豆：https://baomidou.com/
-
-感谢自己又坚持学习了一门课程：https://www.oz6.cn/
