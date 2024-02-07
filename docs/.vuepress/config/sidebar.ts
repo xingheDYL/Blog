@@ -146,6 +146,13 @@ export default sidebar([
         prefix: "Project/",
         children: "structure"
       },
+      {
+        text: "Elasticsearch",
+        icon: "elasticsearch",
+        collapsable: true,
+        prefix: "Elasticsearch/",
+        children: "structure"
+      },
     ],
   },
 ]);

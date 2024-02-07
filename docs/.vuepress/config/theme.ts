@@ -12,7 +12,7 @@ export default hopeTheme({
   },
 
   // iconAssets: "iconfont",
-  iconAssets: "//at.alicdn.com/t/c/font_3642624_c2k6g7u2rt7.css",
+  iconAssets: "//at.alicdn.com/t/c/font_3642624_rj1irup7ac.css",
 
   // 支持全屏
   fullscreen: true,
@@ -77,10 +77,10 @@ export default hopeTheme({
       article: "/views/"
     },
 
-    copyCode: { 
-      showInMobile: true 
+    copyCode: {
+      showInMobile: true
     },
-    
+
     copyright: {
       global: true,
       author: "DYL",
