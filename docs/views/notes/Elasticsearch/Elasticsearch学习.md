@@ -8,8 +8,6 @@ category:
 tag:
   - Elasticsearch
 ---
-[toc]
-
 第1章 Elasticsearch概述
 --------------------------------------------------------------------------------------------
 
@@ -77,7 +75,7 @@ Google，百度类的网站搜索，它们都是根据网页中的关键字生�
 
 [官方文档](https://www.elastic.co/guide/index.html)
 
-[Elasticsearch 7.8.0下载页面](https://mirrors.huaweicloud.com/elasticsearch/7.8.0/)
+[Elasticsearch 7.6.1下载页面](https://mirrors.huaweicloud.com/elasticsearch/7.6.1/)
 
 Windows 版的 Elasticsearch 压缩包，解压即安装完毕，解压后的 Elasticsearch 的目录结构如下 ：
 
@@ -2442,11 +2440,9 @@ public class CreateIndex {
 后台打印：
 
 ```shell
-四月 09, 2021 2:12:08 下午 org.elasticsearch.client.RestClient logResponse
-警告: request [PUT http://localhost:9200/user2?master_timeout=30s&include_type_name=true&timeout=30s] returned 1 warnings: [299 Elasticsearch-7.8.0-757314695644ea9a1dc2fecd26d1a43856725e65 "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."]
+二月 19, 2024 10:06:27 上午 org.elasticsearch.client.RestClient logResponse
+警告: request [PUT http://localhost:9200/user2?master_timeout=30s&include_type_name=true&timeout=30s] returned 1 warnings: [299 Elasticsearch-7.6.1-aa751e09be0a5072e8570670309b1f12348f023b "[types removal] Using include_type_name in create index requests is deprecated. The parameter will be removed in the next major version."]
 操作状态 = true
-
-Process finished with exit code 0
 ```
 
 
@@ -2491,10 +2487,8 @@ public class SearchIndex {
 
 ```shell
 aliases:{user2=[]}
-mappings:{user2=org.elasticsearch.cluster.metadata.MappingMetadata@ad700514}
-settings:{user2={"index.creation_date":"1617948726976","index.number_of_replicas":"1","index.number_of_shards":"1","index.provided_name":"user2","index.uuid":"UGZ1ntcySnK6hWyP2qoVpQ","index.version.created":"7080099"}}
-
-Process finished with exit code 0
+mappings:{user2=org.elasticsearch.cluster.metadata.MappingMetaData@7d5f4b99}
+settings:{user2={"index.creation_date":"1708308387854","index.number_of_replicas":"1","index.number_of_shards":"1","index.provided_name":"user2","index.uuid":"vwY4D7ANTYGbUFCQA9sLoA","index.version.created":"7060199"}}
 ```
 
 
@@ -2530,8 +2524,6 @@ public class DeleteIndex {
 
 ```shell
 操作结果 ： true
-
-Process finished with exit code 0
 ```
 
 
@@ -2600,11 +2592,38 @@ public class SomeClass {
 }
 ```
 
-
-​    
-
 #### 新增
+```java
+public class User {
+    private String name;
+    private String sex;
+    private Integer age;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+}
+```
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lun.elasticsearch.hello.ConnectElasticsearch;
@@ -2635,7 +2654,7 @@ public class InsertDoc {
             request.source(productJson, XContentType.JSON);
             // 客户端发送请求，获取响应对象
             IndexResponse response = client.index(request, RequestOptions.DEFAULT);
-            3.打印结果信息
+            // 打印结果信息
             System.out.println("_index:" + response.getIndex());
             System.out.println("_id:" + response.getId());
             System.out.println("_result:" + response.getResult());
@@ -2650,9 +2669,7 @@ public class InsertDoc {
 ```shell
 _index:user
 _id:1001
-_result:UPDATED
-
-Process finished with exit code 0
+_result:CREATED
 ```
 
 
@@ -2692,9 +2709,7 @@ public class UpdateDoc {
 ```shell
 _index:user
 _id:1001
-_result:UPDATED
-
-Process finished with exit code 0
+_result:UPDATE
 ```
 
 
@@ -2716,7 +2731,7 @@ public class GetDoc {
             GetRequest request = new GetRequest().index("user").id("1001");
             //2.客户端发送请求，获取响应对象
             GetResponse response = client.get(request, RequestOptions.DEFAULT);
-            3.打印结果信息
+            //3.打印结果信息
             System.out.println("_index:" + response.getIndex());
             System.out.println("_type:" + response.getType());
             System.out.println("_id:" + response.getId());
@@ -2726,18 +2741,13 @@ public class GetDoc {
 }
 ```
 
-
-​    
-
 后台打印：
 
 ```shell
 _index:user
 _type:_doc
 _id:1001
-source:{"name":"zhangsan","age":30,"sex":"男"}
-
-Process finished with exit code 0
+source:{"name":"zhangsan","sex":"女","age":30}
 ```
 
 
@@ -2767,9 +2777,7 @@ public class DeleteDoc {
 后台打印：
 
 ```shell
-DeleteResponse[index=user,type=_doc,id=1001,version=16,result=deleted,shards=ShardInfo{total=2, successful=1, failures=[]}]
-
-Process finished with exit code 0
+DeleteResponse[index=user,type=_doc,id=1001,version=3,result=deleted,shards=ShardInfo{total=2, successful=1, failures=[]}]
 ```
 
 
@@ -2778,7 +2786,6 @@ Process finished with exit code 0
 #### 批量新增
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -2791,15 +2798,12 @@ public class BatchInsertDoc {
         ConnectElasticsearch.connect(client -> {
             //创建批量新增请求对象
             BulkRequest request = new BulkRequest();
-            request.add(new
-                    IndexRequest().index("user").id("1001").source(XContentType.JSON, "name",
-                    "zhangsan"));
-            request.add(new
-                    IndexRequest().index("user").id("1002").source(XContentType.JSON, "name",
-                            "lisi"));
-            request.add(new
-                    IndexRequest().index("user").id("1003").source(XContentType.JSON, "name",
-                    "wangwu"));
+            request.add(new IndexRequest().index("user").id("1001").source(XContentType.JSON, "name", "zhangsan", "age", "10", "sex", "女"));
+            request.add(new IndexRequest().index("user").id("1002").source(XContentType.JSON, "name", "lisi", "age", "30", "sex", "女"));
+            request.add(new IndexRequest().index("user").id("1003").source(XContentType.JSON, "name", "wangwu1", "age", "40", "sex", "男"));
+            request.add(new IndexRequest().index("user").id("1004").source(XContentType.JSON, "name", "wangwu2", "age", "20", "sex", "女"));
+            request.add(new IndexRequest().index("user").id("1005").source(XContentType.JSON, "name", "wangwu3", "age", "50", "sex", "男"));
+            request.add(new IndexRequest().index("user").id("1006").source(XContentType.JSON, "name", "wangwu4", "age", "20", "sex", "男"));
             //客户端发送请求，获取响应对象
             BulkResponse responses = client.bulk(request, RequestOptions.DEFAULT);
             //打印结果信息
@@ -2810,14 +2814,11 @@ public class BatchInsertDoc {
 }
 ```
 
-
 后台打印
 
 ```shell
-took:294ms
-items:[Lorg.elasticsearch.action.bulk.BulkItemResponse;@2beee7ff
-
-Process finished with exit code 0
+took:5ms
+items:[Lorg.elasticsearch.action.bulk.BulkItemResponse;@d21a74c
 ```
 
 
@@ -2838,6 +2839,9 @@ public class BatchDeleteDoc {
             request.add(new DeleteRequest().index("user").id("1001"));
             request.add(new DeleteRequest().index("user").id("1002"));
             request.add(new DeleteRequest().index("user").id("1003"));
+            request.add(new DeleteRequest().index("user").id("1004"));
+            request.add(new DeleteRequest().index("user").id("1005"));
+            request.add(new DeleteRequest().index("user").id("1006"));
             //客户端发送请求，获取响应对象
             BulkResponse responses = client.bulk(request, RequestOptions.DEFAULT);
             //打印结果信息
@@ -2852,57 +2856,17 @@ public class BatchDeleteDoc {
 后台打印
 
 ```shell
-took:108ms
-items:[Lorg.elasticsearch.action.bulk.BulkItemResponse;@7b02881e
-
-Process finished with exit code 0
+took:6ms
+items:[Lorg.elasticsearch.action.bulk.BulkItemResponse;@247bddad
 ```
-
-
-​    
 
 ### 24-入门-JavaAPI-文档-高级查询-全量查询
-
-先批量增加数据
-
-```java
-public class BatchInsertDoc {
-
-    public static void main(String[] args) {
-        ConnectElasticsearch.connect(client -> {
-            //创建批量新增请求对象
-            BulkRequest request = new BulkRequest();
-            request.add(new IndexRequest().index("user").id("1001").source(XContentType.JSON, "name", "zhangsan", "age", "10", "sex","女"));
-            request.add(new IndexRequest().index("user").id("1002").source(XContentType.JSON, "name", "lisi", "age", "30", "sex","女"));
-            request.add(new IndexRequest().index("user").id("1003").source(XContentType.JSON, "name", "wangwu1", "age", "40", "sex","男"));
-            request.add(new IndexRequest().index("user").id("1004").source(XContentType.JSON, "name", "wangwu2", "age", "20", "sex","女"));
-            request.add(new IndexRequest().index("user").id("1005").source(XContentType.JSON, "name", "wangwu3", "age", "50", "sex","男"));
-            request.add(new IndexRequest().index("user").id("1006").source(XContentType.JSON, "name", "wangwu4", "age", "20", "sex","男"));
-            //客户端发送请求，获取响应对象
-            BulkResponse responses = client.bulk(request, RequestOptions.DEFAULT);
-            //打印结果信息
-            System.out.println("took:" + responses.getTook());
-            System.out.println("items:" + responses.getItems());
-        });
-    }
-}
-```
-
-
-后台打印
-
-```shell
-took:168ms
-items:[Lorg.elasticsearch.action.bulk.BulkItemResponse;@2beee7ff
-
-Process finished with exit code 0
-```
-
 
 **查询所有索引数据**
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -2921,7 +2885,7 @@ public class QueryDoc {
             // 构建查询的请求体
             SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
             // 查询所有数据
-            sourceBuilder.query(QueryBuilders.matchAllQuery());
+            setSearchAll(sourceBuilder);
             request.source(sourceBuilder);
             SearchResponse response = client.search(request, RequestOptions.DEFAULT);
             // 查询匹配
@@ -2932,13 +2896,19 @@ public class QueryDoc {
             System.out.println("MaxScore:" + hits.getMaxScore());
             System.out.println("hits========>>");
             for (SearchHit hit : hits) {
-            //输出每条查询的结果信息
+                //输出每条查询的结果信息
                 System.out.println(hit.getSourceAsString());
             }
             System.out.println("<<========");
         });
     }
 
+    /**
+     * 查询所有数据
+     */
+    public static void setSearchAll(SearchSourceBuilder sourceBuilder) {
+        sourceBuilder.query(QueryBuilders.matchAllQuery());
+    }
 }
 ```
 
@@ -2946,7 +2916,7 @@ public class QueryDoc {
 后台打印
 
 ```shell
-took:2ms
+took:1ms
 timeout:false
 total:6 hits
 MaxScore:1.0
@@ -2958,8 +2928,6 @@ hits========>>
 {"name":"wangwu3","age":"50","sex":"男"}
 {"name":"wangwu4","age":"20","sex":"男"}
 <<========
-
-Process finished with exit code 0
 ```
 
 
@@ -2968,8 +2936,8 @@ Process finished with exit code 0
 #### 条件查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -2977,56 +2945,61 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-	public static final ElasticsearchTask SEARCH_BY_CONDITION = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.termQuery("age", "30"));
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-            //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
-    };
-    
+
     public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_BY_CONDITION);
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 条件查询数据
+            setSearchByCondition(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
+    }
+    
+    /**
+     * 条件查询数据
+     */
+    public static void setSearchByCondition(SearchSourceBuilder sourceBuilder) {
+        sourceBuilder.query(QueryBuilders.termQuery("age", "30"));
     }
 }
 ```
 
-
 后台打印
 
-    took:1ms
-    timeout:false
-    total:1 hits
-    MaxScore:1.0
-    hits========>>
-    {"name":"lisi","age":"30","sex":"女"}
-    <<========
-
+```shell
+took:1ms
+timeout:false
+total:1 hits
+MaxScore:1.0
+hits========>>
+{"name":"lisi","age":"30","sex":"女"}
+<<========
+```
 
 #### 分页查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3034,43 +3007,45 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-	public static final ElasticsearchTask SEARCH_BY_PAGING = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.matchAllQuery());
-        // 分页查询
-        // 当前页其实索引(第一条数据的顺序号)， from
-        sourceBuilder.from(0);
 
-        // 每页显示多少条 size
-        sourceBuilder.size(2);
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-            //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
-    };
-    
     public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_BY_CONDITION);
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 分页查询数据
+            setSearchByPage(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
     }
 
+    /**
+     * 分页查询数据
+     */
+    public static void setSearchByPage(SearchSourceBuilder sourceBuilder) {
+        // 当前页其实索引(第一条数据的顺序号)， from
+        sourceBuilder.query(QueryBuilders.matchAllQuery());
+        sourceBuilder.from(0);
+        // 每页显示多少条 size
+        sourceBuilder.size(2);
+    }
 }
 ```
 
@@ -3092,8 +3067,8 @@ hits========>>
 #### 查询排序
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3104,47 +3079,48 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-	public static final ElasticsearchTask SEARCH_WITH_ORDER = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
 
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+    public static void main(String[] args) {
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 数据排序
+            setSearchOrder(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
+    }
+
+    /**
+     * 查询数据并排序
+     */
+    public static void setSearchOrder(SearchSourceBuilder sourceBuilder) {
         sourceBuilder.query(QueryBuilders.matchAllQuery());
         // 排序
         sourceBuilder.sort("age", SortOrder.ASC);
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-        //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
-    };
-
-    public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_WITH_ORDER);
     }
-
 }
 ```
-
-
-​    
 
 后台打印
 
 ```shell
-took:1ms
+took:15ms
 timeout:false
 total:6 hits
 MaxScore:NaN
@@ -3158,14 +3134,85 @@ hits========>>
 <<========
 ```
 
+#### 查询过滤
+
+```java
+package com.example.demo;
+
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
+
+public class QueryDoc {
+
+    public static void main(String[] args) {
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 过滤字段
+            setSearchFilter(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
+    }
+
+    /**
+     * 查询数据并过滤字段
+     */
+    public static void setSearchFilter(SearchSourceBuilder sourceBuilder) {
+        sourceBuilder.query(QueryBuilders.matchAllQuery());
+        // 过滤掉age字段
+        String[] excludes = {"age"};
+        String[] includes = {};
+        sourceBuilder.fetchSource(includes, excludes);
+    }
+}
+```
+
+后台打印
+
+```shell
+took:2ms
+timeout:false
+total:6 hits
+MaxScore:1.0
+hits========>>
+{"sex":"女","name":"zhangsan"}
+{"sex":"女","name":"lisi"}
+{"sex":"男","name":"wangwu1"}
+{"sex":"女","name":"wangwu2"}
+{"sex":"男","name":"wangwu3"}
+{"sex":"男","name":"wangwu4"}
+<<========
+```
 
 ### 26-入门-JavaAPI-文档-高级查询-组合查询 & 范围查询
 
 #### 组合查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3177,13 +3224,37 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-	public static final ElasticsearchTask SEARCH_BY_BOOL_CONDITION = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+
+    public static void main(String[] args) {
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 组合查询
+            setSearchCombination(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
+    }
+
+    /**
+     * 组合查询
+     */
+    public static void setSearchCombination(SearchSourceBuilder sourceBuilder) {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         // 必须包含
         boolQueryBuilder.must(QueryBuilders.matchQuery("age", "30"));
@@ -3192,25 +3263,6 @@ public class QueryDoc {
         // 可能包含
         boolQueryBuilder.should(QueryBuilders.matchQuery("sex", "男"));
         sourceBuilder.query(boolQueryBuilder);
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-            //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
-
-    };
-
-    public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_BY_BOOL_CONDITION);
     }
 }
 ```
@@ -3219,23 +3271,21 @@ public class QueryDoc {
 后台打印
 
 ```shell
-took:28ms
+took:2ms
 timeout:false
 total:1 hits
 MaxScore:1.0
 hits========>>
 {"name":"lisi","age":"30","sex":"女"}
 <<========
-
-Process finished with exit code 0
 ```
 
 
 #### 范围查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3248,58 +3298,58 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-	public static final ElasticsearchTask SEARCH_BY_RANGE = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("age");
-        // 大于等于
-        //rangeQuery.gte("30");
-        // 小于等于
-        rangeQuery.lte("40");
-        sourceBuilder.query(rangeQuery);
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-        //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
-    };
 
     public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_BY_RANGE);
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 范围查询
+            setSearchRange(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
     }
 
+    /**
+     * 范围查询
+     */
+    public static void setSearchRange(SearchSourceBuilder sourceBuilder) {
+        RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("age");
+        // 大于等于
+        rangeQuery.gte(30);
+        // 小于
+        rangeQuery.lt(50);
+        sourceBuilder.query(rangeQuery);
+    }
 }
 ```
 
 后台打印
 
 ```shell
-took:1ms
+took:3ms
 timeout:false
-total:5 hits
+total:2 hits
 MaxScore:1.0
 hits========>>
-{"name":"zhangsan","age":"10","sex":"女"}
 {"name":"lisi","age":"30","sex":"女"}
 {"name":"wangwu1","age":"40","sex":"男"}
-{"name":"wangwu2","age":"20","sex":"女"}
-{"name":"wangwu4","age":"20","sex":"男"}
 <<========
-
-Process finished with exit code 0
 ```
 
 
@@ -3308,8 +3358,8 @@ Process finished with exit code 0
 #### 模糊查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3323,40 +3373,40 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
 public class QueryDoc {
-    
-    public static final ElasticsearchTask SEARCH_BY_FUZZY_CONDITION = client -> {
-        // 创建搜索请求对象
-        SearchRequest request = new SearchRequest();
-        request.indices("user");
-        // 构建查询的请求体
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.fuzzyQuery("name","wangwu").fuzziness(Fuzziness.ONE));
-        request.source(sourceBuilder);
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        // 查询匹配
-        SearchHits hits = response.getHits();
-        System.out.println("took:" + response.getTook());
-        System.out.println("timeout:" + response.isTimedOut());
-        System.out.println("total:" + hits.getTotalHits());
-        System.out.println("MaxScore:" + hits.getMaxScore());
-        System.out.println("hits========>>");
-        for (SearchHit hit : hits) {
-            //输出每条查询的结果信息
-            System.out.println(hit.getSourceAsString());
-        }
-        System.out.println("<<========");
+
+    public static void main(String[] args) {
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 模糊查询
+            setSearchFuzzy(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+            }
+            System.out.println("<<========");
+        });
     }
     
-        
-        public static void main(String[] args) {
-    //        ConnectElasticsearch.connect(SEARCH_ALL);
-    //        ConnectElasticsearch.connect(SEARCH_BY_CONDITION);
-    //        ConnectElasticsearch.connect(SEARCH_BY_PAGING);
-    //        ConnectElasticsearch.connect(SEARCH_WITH_ORDER);
-    //        ConnectElasticsearch.connect(SEARCH_BY_BOOL_CONDITION);
-    //        ConnectElasticsearch.connect(SEARCH_BY_RANGE);
-            ConnectElasticsearch.connect(SEARCH_BY_FUZZY_CONDITION);
-        }
+    /**
+     * 模糊查询
+     */
+    public static void setSearchFuzzy(SearchSourceBuilder sourceBuilder) {
+        // Fuzziness.TWO 代表最多有两个字段模糊 例如可以查wangwu12,如果是Fuzziness.TWO 就查不到wangwu12
+        sourceBuilder.query(QueryBuilders.fuzzyQuery("name", "wangwu").fuzziness(Fuzziness.TWO));
+    }
 }
 ```
 
@@ -3364,7 +3414,7 @@ public class QueryDoc {
 后台打印
 
 ```shell
-took:152ms
+took:3ms
 timeout:false
 total:4 hits
 MaxScore:1.2837042
@@ -3374,16 +3424,14 @@ hits========>>
 {"name":"wangwu3","age":"50","sex":"男"}
 {"name":"wangwu4","age":"20","sex":"男"}
 <<========
-
-Process finished with exit code 0
 ```
 
 
 #### 高亮查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3402,48 +3450,51 @@ import org.elasticsearch.search.sort.SortOrder;
 import java.util.Map;
 
 public class QueryDoc {
-    
-    public static final ElasticsearchTask SEARCH_WITH_HIGHLIGHT = client -> {
-        // 高亮查询
-        SearchRequest request = new SearchRequest().indices("user");
-        //2.创建查询请求体构建器
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        //构建查询方式：高亮查询
-        TermsQueryBuilder termsQueryBuilder =
-                QueryBuilders.termsQuery("name","zhangsan");
-        //设置查询方式
-        sourceBuilder.query(termsQueryBuilder);
-        //构建高亮字段
+
+    public static void main(String[] args) {
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 高亮查询
+            setSearchHighlight(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 查询匹配
+            SearchHits hits = response.getHits();
+            System.out.println("took:" + response.getTook());
+            System.out.println("timeout:" + response.isTimedOut());
+            System.out.println("total:" + hits.getTotalHits());
+            System.out.println("MaxScore:" + hits.getMaxScore());
+            System.out.println("hits========>>");
+            for (SearchHit hit : hits) {
+                //输出每条查询的结果信息
+                System.out.println(hit.getSourceAsString());
+                // 只有高亮查询时加下面两行代码
+                //打印高亮结果
+                Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+                System.out.println(highlightFields);
+            }
+            System.out.println("<<========");
+        });
+    }
+
+    /**
+     * 高亮查询
+     */
+    public static void setSearchHighlight(SearchSourceBuilder sourceBuilder) {
+        TermsQueryBuilder termsQueryBuilder = QueryBuilders.termsQuery("name", "zhangsan");
+
         HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.preTags("<font color='red'>");//设置标签前缀
-        highlightBuilder.postTags("</font>");//设置标签后缀
-        highlightBuilder.field("name");//设置高亮字段
-        //设置高亮构建对象
+        highlightBuilder.preTags("<font color='red'>");
+        highlightBuilder.postTags("</font>");
+        highlightBuilder.field("name");
+
         sourceBuilder.highlighter(highlightBuilder);
-        //设置请求体
-        request.source(sourceBuilder);
-        //3.客户端发送请求，获取响应对象
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        //4.打印响应结果
-        SearchHits hits = response.getHits();
-        System.out.println("took::"+response.getTook());
-        System.out.println("time_out::"+response.isTimedOut());
-        System.out.println("total::"+hits.getTotalHits());
-        System.out.println("max_score::"+hits.getMaxScore());
-        System.out.println("hits::::>>");
-        for (SearchHit hit : hits) {
-            String sourceAsString = hit.getSourceAsString();
-            System.out.println(sourceAsString);
-            //打印高亮结果
-            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
-            System.out.println(highlightFields);
-        }
-        System.out.println("<<::::");
-    };
-        
-        public static void main(String[] args) {
-            ConnectElasticsearch.connect(SEARCH_WITH_HIGHLIGHT);
-        }
+        sourceBuilder.query(termsQueryBuilder);
+    }
 }
 ```
 
@@ -3451,16 +3502,14 @@ public class QueryDoc {
 后台打印
 
 ```shell
-took::672ms
-time_out::false
-total::1 hits
-max_score::1.0
-hits::::>>
+took:1ms
+timeout:false
+total:1 hits
+MaxScore:1.0
+hits========>>
 {"name":"zhangsan","age":"10","sex":"女"}
 {name=[name], fragments[[<font color='red'>zhangsan</font>]]}
-<<::::
-
-Process finished with exit code 0
+<<========
 ```
 
 
@@ -3469,8 +3518,8 @@ Process finished with exit code 0
 #### 最大值查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3479,36 +3528,37 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortOrder;
 
-import java.util.Map;
-
 public class QueryDoc {
-    
-    public static final ElasticsearchTask SEARCH_WITH_MAX = client -> {
-        // 高亮查询
-        SearchRequest request = new SearchRequest().indices("user");
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.aggregation(AggregationBuilders.max("maxAge").field("age"));
-        //设置请求体
-        request.source(sourceBuilder);
-        //3.客户端发送请求，获取响应对象
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        //4.打印响应结果
-        SearchHits hits = response.getHits();
-        System.out.println(response);
-    };
 
     public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_WITH_MAX);
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 最大值查询
+            setSearchMax(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 最大值查询只打印这个
+            System.out.println(response);
+        });
     }
 
+    /**
+     * 最大值查询
+     */
+    public static void setSearchMax(SearchSourceBuilder sourceBuilder) {
+        AggregationBuilder aggregationBuilder = AggregationBuilders.max("maxAge").field("age");
+        sourceBuilder.aggregation(aggregationBuilder);
+    }
 }
 ```
 
@@ -3516,17 +3566,15 @@ public class QueryDoc {
 后台打印
 
 ```shell
-{"took":16,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":6,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"user","_type":"_doc","_id":"1001","_score":1.0,"_source":{"name":"zhangsan","age":"10","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1002","_score":1.0,"_source":{"name":"lisi","age":"30","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1003","_score":1.0,"_source":{"name":"wangwu1","age":"40","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1004","_score":1.0,"_source":{"name":"wangwu2","age":"20","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1005","_score":1.0,"_source":{"name":"wangwu3","age":"50","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1006","_score":1.0,"_source":{"name":"wangwu4","age":"20","sex":"男"}}]},"aggregations":{"max#maxAge":{"value":50.0}}}
-
-Process finished with exit code 0
+{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":6,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"user","_type":"_doc","_id":"1001","_score":1.0,"_source":{"name":"zhangsan","age":"10","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1002","_score":1.0,"_source":{"name":"lisi","age":"30","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1003","_score":1.0,"_source":{"name":"wangwu1","age":"40","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1004","_score":1.0,"_source":{"name":"wangwu2","age":"20","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1005","_score":1.0,"_source":{"name":"wangwu3","age":"50","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1006","_score":1.0,"_source":{"name":"wangwu4","age":"20","sex":"男"}}]},"aggregations":{"max#maxAge":{"value":50.0}}}
 ```
 
 
 #### 分组查询
 
 ```java
-import com.lun.elasticsearch.hello.ConnectElasticsearch;
-import com.lun.elasticsearch.hello.ElasticsearchTask;
+package com.example.demo;
+
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -3535,35 +3583,37 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortOrder;
-
-import java.util.Map;
 
 public class QueryDoc {
 
-	public static final ElasticsearchTask SEARCH_WITH_GROUP = client -> {
-        SearchRequest request = new SearchRequest().indices("user");
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.aggregation(AggregationBuilders.terms("age_groupby").field("age"));
-        //设置请求体
-        request.source(sourceBuilder);
-        //3.客户端发送请求，获取响应对象
-        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
-        //4.打印响应结果
-        SearchHits hits = response.getHits();
-        System.out.println(response);
-    };
-
     public static void main(String[] args) {
-        ConnectElasticsearch.connect(SEARCH_WITH_GROUP);
+        ConnectElasticsearch.connect(client -> {
+            // 创建搜索请求对象
+            SearchRequest request = new SearchRequest();
+            request.indices("user");
+            // 构建查询的请求体
+            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+            // 分组查询
+            setSearchByGroup(sourceBuilder);
+            request.source(sourceBuilder);
+            SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+            // 分组查询只打印这个
+            System.out.println(response);
+        });
     }
 
+    /**
+     * 分组查询
+     */
+    public static void setSearchByGroup(SearchSourceBuilder sourceBuilder) {
+        AggregationBuilder aggregationBuilder = AggregationBuilders.terms("ageGroup").field("age");
+        sourceBuilder.aggregation(aggregationBuilder);
+    }
 }
 ```
 
@@ -3571,9 +3621,7 @@ public class QueryDoc {
 后台打印
 
 ```shell
-{"took":10,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":6,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"user","_type":"_doc","_id":"1001","_score":1.0,"_source":{"name":"zhangsan","age":"10","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1002","_score":1.0,"_source":{"name":"lisi","age":"30","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1003","_score":1.0,"_source":{"name":"wangwu1","age":"40","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1004","_score":1.0,"_source":{"name":"wangwu2","age":"20","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1005","_score":1.0,"_source":{"name":"wangwu3","age":"50","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1006","_score":1.0,"_source":{"name":"wangwu4","age":"20","sex":"男"}}]},"aggregations":{"lterms#age_groupby":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":20,"doc_count":2},{"key":10,"doc_count":1},{"key":30,"doc_count":1},{"key":40,"doc_count":1},{"key":50,"doc_count":1}]}}}
-
-Process finished with exit code 0
+{"took":7,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":6,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"user","_type":"_doc","_id":"1001","_score":1.0,"_source":{"name":"zhangsan","age":"10","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1002","_score":1.0,"_source":{"name":"lisi","age":"30","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1003","_score":1.0,"_source":{"name":"wangwu1","age":"40","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1004","_score":1.0,"_source":{"name":"wangwu2","age":"20","sex":"女"}},{"_index":"user","_type":"_doc","_id":"1005","_score":1.0,"_source":{"name":"wangwu3","age":"50","sex":"男"}},{"_index":"user","_type":"_doc","_id":"1006","_score":1.0,"_source":{"name":"wangwu4","age":"20","sex":"男"}}]},"aggregations":{"lterms#ageGroup":{"doc_count_error_upper_bound":0,"sum_other_doc_count":0,"buckets":[{"key":20,"doc_count":2},{"key":10,"doc_count":1},{"key":30,"doc_count":1},{"key":40,"doc_count":1},{"key":50,"doc_count":1}]}}}
 ```
 
 
@@ -3598,7 +3646,7 @@ Process finished with exit code 0
 
 #### 集群 Cluster
 
-**一个集群就是由一个或多个服务器节点组织在一起，共同持有整个的数据，并一起提供索引和搜索功能。**一个 Elasticsearch 集群有一个唯一的名字标识，这个名字默认就是”elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集群的名字，来加入这个集群。
+一个集群就是由一个或多个服务器节点组织在一起，共同持有整个的数据，并一起提供索引和搜索功能。一个 Elasticsearch 集群有一个唯一的名字标识，这个名字默认就是”elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集群的名字，来加入这个集群。
 
 #### 节点 Node
 
@@ -3618,9 +3666,9 @@ Process finished with exit code 0
 
 一、创建 elasticsearch-cluster 文件夹
 
-创建 elasticsearch-7.8.0-cluster 文件夹，在内部复制三个 elasticsearch 服务。
+创建 elasticsearch-7.6.1-cluster 文件夹，在内部复制三个 elasticsearch 服务。
 
-![](https://qiniu.xinghe.fit/Elasticsearch/6d6022b6d30a9e2c1a4e18092d5f130f.png)
+![image-20240229164229454](https://qiniu.xinghe.fit/image-20240229164229454.png)
 
 二、修改集群文件目录中每个节点的 config/elasticsearch.yml 配置文件
 
@@ -3637,7 +3685,7 @@ node.data: true
 #ip 地址
 network.host: localhost
 #http 端口
-http.port: 1001
+http.port: 1002
 #tcp 监听端口
 transport.tcp.port: 9301
 #discovery.seed_hosts: ["localhost:9301", "localhost:9302","localhost:9303"]
@@ -3665,7 +3713,7 @@ node.data: true
 #ip 地址
 network.host: localhost
 #http 端口
-http.port: 1002
+http.port: 1003
 #tcp 监听端口
 transport.tcp.port: 9302
 discovery.seed_hosts: ["localhost:9301"]
@@ -3693,7 +3741,7 @@ node.data: true
 #ip 地址
 network.host: localhost
 #http 端口
-http.port: 1003
+http.port: 1004
 #tcp 监听端口
 transport.tcp.port: 9303
 #候选主节点的地址，在开启服务后可以被选为主节点
@@ -3709,25 +3757,63 @@ http.cors.allow-origin: "*"
 ```
 
 
-三、如果有必要，删除每个节点中的 data 目录中所有内容 。
+三、如果有必要，删除每个节点中的 data 目录中所有内容。
 
 #### 启动集群
 
 分别依次双击执行节点的bin/elasticsearch.bat, 启动节点服务器（可以编写一个脚本启动），启动后，会自动加入指定名称的集群。
 
+一键启动脚本.bat
+
+```shell
+@echo off 
+echo elasticsearch is starting...
+echo node-1001 is starting... 
+start D:\APP\elasticsearch-7.6.1-cluster\node-1001\bin\elasticsearch.bat
+start D:\APP\elasticsearch-7.6.1-cluster\node-1002\bin\elasticsearch.bat
+start D:\APP\elasticsearch-7.6.1-cluster\node-1003\bin\elasticsearch.bat
+echo elasticsearch started...
+pause
+```
+
+一键暂停脚本.bat
+
+```shell
+@echo off
+set port1=9301
+set port2=9302
+set port3=9303
+for /f "tokens=1-5" %%i in ('netstat -ano^|findstr ":%port1%"') do (
+    echo kill the process %%m who use the port %port1%
+    taskkill /F /pid %%m
+)
+for /f "tokens=1-5" %%i in ('netstat -ano^|findstr ":%port2%"') do (
+    echo kill the process %%m who use the port %port2%
+    taskkill /F /pid %%m
+)
+for /f "tokens=1-5" %%i in ('netstat -ano^|findstr ":%port3%"') do (
+    echo kill the process %%m who use the port %port3%
+    taskkill /F /pid %%m
+)
+echo stop elasticsearch cluster success...
+pause
+```
+
+
+
 #### 测试集群
 
 一、用Postman，查看集群状态
 
-1.  `GET http://127.0.0.1:1001/_cluster/health`
-2.  `GET http://127.0.0.1:1002/_cluster/health`
-3.  `GET http://127.0.0.1:1003/_cluster/health`
+1.  `GET http://127.0.0.1:1002/_cluster/health`
+2.  `GET http://127.0.0.1:1003/_cluster/health`
+3.  `GET http://127.0.0.1:1004/_cluster/health`
 
 返回结果皆为如下：
 
 ```json
 {
-    "cluster_name": "my-application",
+    "cluster_name": "my-elasticsearch",
     "status": "green",
     "timed_out": false,
     "number_of_nodes": 3,
@@ -3756,7 +3842,7 @@ http.cors.allow-origin: "*"
 向集群中的node-1001节点增加索引：
 
 ```json
-#PUT http://127.0.0.1:1001/user
+#PUT http://127.0.0.1:1002/user
 ```
 
 
@@ -3774,7 +3860,7 @@ http.cors.allow-origin: "*"
 向集群中的node-1003节点获取索引：
 
 ```json
-#GET http://127.0.0.1:1003/user
+#GET http://127.0.0.1:1004/user
 ```
 
 
@@ -3787,12 +3873,12 @@ http.cors.allow-origin: "*"
         "mappings": {},
         "settings": {
             "index": {
-                "creation_date": "1617993035885",
+                "creation_date": "1709198425914",
                 "number_of_shards": "1",
                 "number_of_replicas": "1",
-                "uuid": "XJKERwQlSJ6aUxZEN2EV0w",
+                "uuid": "VA4KagwuS7ONDgxZYDNvgA",
                 "version": {
-                    "created": "7080099"
+                    "created": "7060199"
                 },
                 "provided_name": "user"
             }
@@ -3810,15 +3896,15 @@ http.cors.allow-origin: "*"
 
 一、下载软件
 
-[下载Linux版的Elasticsearch](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-7-8-0)
+[下载Linux版的Elasticsearch](https://mirrors.huaweicloud.com/elasticsearch/7.6.1/)
 
 二、解压软件
 
 ```shell
 # 解压缩
-tar -zxvf elasticsearch-7.8.0-linux-x86_64.tar.gz -C /opt/module
+tar -zxvf elasticsearch-7.6.1-linux-x86_64.tar.gz -C /opt/module
 # 改名
-mv elasticsearch-7.8.0 es
+mv elasticsearch-7.6.1 es
 ```
 
 
@@ -3927,15 +4013,15 @@ systemctl disable firewalld.service #关闭防火墙，永久性生效，重启�
 
 一、下载软件
 
-[下载Linux版的Elasticsearch](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-7-8-0)
+[下载Linux版的Elasticsearch](https://mirrors.huaweicloud.com/elasticsearch/7.6.1/)
 
 二、解压软件
 
 ```shell
 # 解压缩
-tar -zxvf elasticsearch-7.8.0-linux-x86_64.tar.gz -C /opt/module
+tar -zxvf elasticsearch-7.6.1-linux-x86_64.tar.gz -C /opt/module
 # 改名
-mv elasticsearch-7.8.0 es-cluster
+mv elasticsearch-7.6.1 es-cluster
 ```
 
 
@@ -4061,24 +4147,13 @@ bin/elasticsearch -d
 
 在一个索引中，你可以定义一种或多种类型。
 
-一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来定。通常，会为具  
-有一组共同字段的文档定义一个类型。不同的版本，类型发生了不同的变化。
+一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来定。通常，会为具有一组共同字段的文档定义一个类型。不同的版本，类型发生了不同的变化。
 
-版本
-
-Type
-
-5.x
-
-支持多种 type
-
-6.x
-
-只能有一种 type
-
-7.x
-
-默认不再支持自定义索引类型（默认类型为： _doc）
+| 版本 |                      Type                       |
+| :--: | :---------------------------------------------: |
+| 5.x  |                  支持多种 type                  |
+| 6.x  |                 只能有一种 type                 |
+| 7.x  | 默认不再支持自定义索引类型（默认类型为： _doc） |
 
 #### 文档Document
 
@@ -4098,8 +4173,7 @@ mapping 是处理数据的方式和规则方面做一些限制，如：某个字
 
 #### 分片Shards
 
-一个索引可以存储超出单个节点硬件限制的大量数据。比如，一个具有 10 亿文档数据  
-的索引占据 1TB 的磁盘空间，而任一节点都可能没有这样大的磁盘空间。 或者单个节点处理搜索请求，响应太慢。为了解决这个问题，\*\*Elasticsearch 提供了将索引划分成多份的能力，每一份就称之为分片。\*\*当你创建一个索引的时候，你可以指定你想要的分片的数量。**每个分片本身也是一个功能完善并且独立的“索引”**，这个“索引”可以被放置到集群中的任何节点上。
+一个索引可以存储超出单个节点硬件限制的大量数据。比如，一个具有 10 亿文档数据的索引占据 1TB 的磁盘空间，而任一节点都可能没有这样大的磁盘空间。 或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch 提供了将索引划分成多份的能力，每一份就称之为分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。
 
 分片很重要，主要有两方面的原因：
 
@@ -4108,20 +4182,19 @@ mapping 是处理数据的方式和规则方面做一些限制，如：某个字
 
 至于一个分片怎样分布，它的文档怎样聚合和搜索请求，是完全由 Elasticsearch 管理的，对于作为用户的你来说，这些都是透明的，无需过分关心。
 
-被混淆的概念是，一个 Lucene 索引 我们在 Elasticsearch 称作 分片 。 一个Elasticsearch 索引 是分片的集合。 当 Elasticsearch 在索引中搜索的时候， 他发送查询到每一个属于索引的分片（Lucene 索引），然后合并每个分片的结果到一个全局的结果集。
+被混淆的概念是，一个 Lucene 索引我们在 Elasticsearch 称作 分片 。 一个Elasticsearch 索引是分片的集合。 当 Elasticsearch 在索引中搜索的时候，他发送查询到每一个属于索引的分片（Lucene 索引），然后合并每个分片的结果到一个全局的结果集。
 
-Lucene 是 Apache 软件基金会 Jakarta 项目组的一个子项目，提供了一个简单却强大的应用程式接口，能够做全文索引和搜寻。在 Java 开发环境里 Lucene 是一个成熟的免费开源工具。就其本身而言， Lucene 是当前以及最近几年最受欢迎的免费 Java 信息检索程序库。但 Lucene 只是一个提供全文搜索功能类库的核心工具包，而真正使用它还需要一个完善的服务框架搭建起来进行应用。
+Lucene 是 Apache 软件基金会 Jakarta 项目组的一个子项目，提供了一个简单却强大的应用程式接口，能够做全文索引和搜寻。在 Java 开发环境里 Lucene 是一个成熟的免费开源工具。就其本身而言，Lucene 是当前以及最近几年最受欢迎的免费 Java 信息检索程序库。但 Lucene 只是一个提供全文搜索功能类库的核心工具包，而真正使用它还需要一个完善的服务框架搭建起来进行应用。
 
 目前市面上流行的搜索引擎软件，主流的就两款： Elasticsearch 和 Solr,这两款都是基于 Lucene 搭建的，可以独立部署启动的搜索引擎服务软件。由于内核相同，所以两者除了服务器安装、部署、管理、集群以外，对于数据的操作 修改、添加、保存、查询等等都十分类似。
 
 #### 副本Replicas
 
-在一个网络 / 云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于  
-离线状态，或者由于任何原因消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的， Elasticsearch 允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片(副本)。
+在一个网络 / 云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的， Elasticsearch 允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片(副本)。
 
 复制分片之所以重要，有两个主要原因：
 
-*   在分片/节点失败的情况下，**提供了高可用性**。因为这个原因，注意到复制分片从不与原/主要（original/primary）分片置于同一节点上是非常重要的。
+*   在分片/节点失败的情况下，提供了高可用性。因为这个原因，注意到复制分片从不与原/主要（original/primary）分片置于同一节点上是非常重要的。
 *   扩展你的搜索量/吞吐量，因为搜索可以在所有的副本上并行运行。
 
 总之，每个索引可以被分成多个分片。一个索引也可以被复制 0 次（意思是没有复制）或多次。一旦复制了，每个索引就有了主分片（作为复制源的原来的分片）和复制分片（主分片的拷贝）之别。
@@ -4138,21 +4211,18 @@ Lucene 是 Apache 软件基金会 Jakarta 项目组的一个子项目，提供�
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/e4d13427545dc174eb9ccface85c1f0c.png)
 
-一个运行中的 Elasticsearch 实例称为一个节点，而集群是由一个或者多个拥有相同  
-cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。
+一个运行中的 Elasticsearch 实例称为一个节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。
 
-当一个节点被选举成为主节点时， 它将负责管理集群范围内的所有变更，例如增加、  
-删除索引，或者增加、删除节点等。 而主节点并不需要涉及到文档级别的变更和搜索等操作，所以当集群只拥有一个主节点的情况下，即使流量的增加它也不会成为瓶颈。 任何节点都可以成为主节点。我们的示例集群就只有一个节点，所以它同时也成为了主节点。
+当一个节点被选举成为主节点时，它将负责管理集群范围内的所有变更，例如增加、删除索引，或者增加、删除节点等。而主节点并不需要涉及到文档级别的变更和搜索等操作，所以当集群只拥有一个主节点的情况下，即使流量的增加它也不会成为瓶颈。任何节点都可以成为主节点。我们的示例集群就只有一个节点，所以它同时也成为了主节点。
 
-作为用户，我们可以将请求发送到集群中的任何节点 ，包括主节点。 每个节点都知道  
-任意文档所处的位置，并且能够将我们的请求直接转发到存储我们所需文档的节点。 无论我们将请求发送到哪个节点，它都能负责从各个包含我们所需文档的节点收集回数据，并将最终结果返回給客户端。 Elasticsearch 对这一切的管理都是透明的。
+作为用户，我们可以将请求发送到集群中的任何节点，包括主节点。每个节点都知道任意文档所处的位置，并且能够将我们的请求直接转发到存储我们所需文档的节点。无论我们将请求发送到哪个节点，它都能负责从各个包含我们所需文档的节点收集回数据，并将最终结果返回給客户端。 Elasticsearch 对这一切的管理都是透明的。
 
 ### 35-进阶-单节点集群
 
 我们在包含一个空节点的集群内创建名为 users 的索引，为了演示目的，我们将分配 3个主分片和一份副本（每个主分片拥有一个副本分片）。
 
 ```json
-#PUT http://127.0.0.1:1001/users
+#PUT http://127.0.0.1:1002/users
 {
     "settings" : {
         "number_of_shards" : 3,
@@ -4172,7 +4242,7 @@ cluster.name 配置的节点组成， 它们共同承担数据和负载的压力
 
 *   集群健康值:yellow( 3 of 6 )：表示当前集群的全部主分片都正常运行，但是副本分片没有全部处在正常状态。
 *   ![](https://qiniu.xinghe.fit/Elasticsearch/489b6de480112879a00067b793bde685.png)：3 个主分片正常。
-*   ![](https://qiniu.xinghe.fit/Elasticsearch/3ce9a78d26ee762f0a7a8abf7817a58e.png)：3 个副本分片都是 Unassigned，它们都没有被分配到任何节点。 在同 一个节点上既保存原始数据又保存副本是没有意义的，因为一旦失去了那个节点，我们也将丢失该节点 上的所有副本数据。
+*   ![](https://qiniu.xinghe.fit/Elasticsearch/3ce9a78d26ee762f0a7a8abf7817a58e.png)：3 个副本分片都是 Unassigned，它们都没有被分配到任何节点。 在同 一个节点上既保存原始数据又保存副本是没有意义的，因为一旦失去了那个节点，我们也将丢失该节点上的所有副本数据。
 
 当前集群是正常运行的，但存在丢失数据的风险。
 
@@ -4180,14 +4250,15 @@ cluster.name 配置的节点组成， 它们共同承担数据和负载的压力
 
 **elasticsearch-head chrome插件安装**
 
+https://blog.csdn.net/qq_45919082/article/details/133077606
+
 [插件获取网址](https://github.com/mobz/elasticsearch-head)，下载压缩包，解压后将内容放入自定义命名为elasticsearch-head文件夹。
 
 接着点击Chrome右上角选项->工具->管理扩展（或则地址栏输入chrome://extensions/），选择打开“开发者模式”，让后点击“加载已解压得扩展程序”，选择elasticsearch-head/_site，即可完成chrome插件安装。
 
 ### 36-进阶-故障转移
 
-当集群中只有一个节点在运行时，意味着会有一个单点故障问题——没有冗余。 幸运的是，我们只需再启动一个节点即可防止数据丢失。当你在同一台机器上启动了第二个节点时，只要它和第一个节点有同样的 cluster.name 配置，它就会自动发现集群并加入到其中。但是在不同机器上启动节点的时候，为了加入到同一集群，你需要配置一个可连接到的单播主机列表。之所以配置为使用单播发现，以防止节点无意中加入集群。只有在同一台机器上  
-运行的节点才会自动组成集群。
+当集群中只有一个节点在运行时，意味着会有一个单点故障问题---没有冗余。 幸运的是，我们只需再启动一个节点即可防止数据丢失。当你在同一台机器上启动了第二个节点时，只要它和第一个节点有同样的 cluster.name 配置，它就会自动发现集群并加入到其中。但是在不同机器上启动节点的时候，为了加入到同一集群，你需要配置一个可连接到的单播主机列表。之所以配置为使用单播发现，以防止节点无意中加入集群。只有在同一台机器上运行的节点才会自动组成集群。
 
 如果启动了第二个节点，集群将会拥有两个节点 : 所有主分片和副本分片都已被分配 。
 
@@ -4199,11 +4270,11 @@ cluster.name 配置的节点组成， 它们共同承担数据和负载的压力
 
 *   集群健康值:green( 3 of 6 )：表示所有 6 个分片（包括 3 个主分片和 3 个副本分片）都在正常运行。
 *   ![](https://qiniu.xinghe.fit/Elasticsearch/e485d8263a4aa3a94af0be951bd5a241.png)：3 个主分片正常。
-*   ![](https://qiniu.xinghe.fit/Elasticsearch/e485d8263a4aa3a94af0be951bd5a241.png)：第二个节点加入到集群后， 3 个副本分片将会分配到这个节点上——每 个主分片对应一个副本分片。这意味着当集群内任何一个节点出现问题时，我们的数据都完好无损。所 有新近被索引的文档都将会保存在主分片上，然后被并行的复制到对应的副本分片上。这就保证了我们 既可以从主分片又可以从副本分片上获得文档。
+*   ![](https://qiniu.xinghe.fit/Elasticsearch/e485d8263a4aa3a94af0be951bd5a241.png)：第二个节点加入到集群后， 3 个副本分片将会分配到这个节点上——每个主分片对应一个副本分片。这意味着当集群内任何一个节点出现问题时，我们的数据都完好无损。所有新进被索引的文档都将会保存在主分片上，然后被并行的复制到对应的副本分片上。这就保证了我们既可以从主分片又可以从副本分片上获得文档。
 
 ### 37-进阶-水平扩容
 
-怎样为我们的正在增长中的应用程序按需扩容呢？当启动了第三个节点，我们的集群将会拥有三个节点的集群 : 为了分散负载而对分片进行重新分配 。
+怎样为我们的正在增长中的应用程序按需扩容呢？当启动了第三个节点，我们的集群将会拥有三个节点的集群: 为了分散负载而对分片进行重新分配。
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/d527e26aa2bccdf54b11410024eadc92.png)
 
@@ -4211,23 +4282,22 @@ cluster.name 配置的节点组成， 它们共同承担数据和负载的压力
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/6985fe14454c1269204478320d089bd7.png)
 
-*   集群健康值:green( 3 of 6 )：表示所有 6 个分片（包括 3 个主分片和 3 个副本分片）都在正常运行。
-*   ![](https://qiniu.xinghe.fit/Elasticsearch/9494419153adb44bedb395ac5d7bc488.png)Node 1 和 Node 2 上各有一个分片被迁移到了新的 Node 3 节点，现在每个节点上都拥有 2 个分片， 而不是之前的 3 个。 这表示每个节点的硬件资源（CPU, RAM, I/O)将被更少的分片所共享，每个分片 的性能将会得到提升。
+集群健康值:green( 3 of 6 )：表示所有 6 个分片（包括 3 个主分片和 3 个副本分片）都在正常运行。
 
-分片是一个功能完整的搜索引擎，它拥有使用一个节点上的所有资源的能力。 我们这个拥有 6 个分 片（3 个主分片和 3 个副本分片）的索引可以最大扩容到 6 个节点，每个节点上存在一个分片，并且每个 分片拥有所在节点的全部资源。
+![](https://qiniu.xinghe.fit/Elasticsearch/9494419153adb44bedb395ac5d7bc488.png)
+
+Node 1 和 Node 2 上各有一个分片被迁移到了新的 Node 3 节点，现在每个节点上都拥有 2 个分片，而不是之前的 3 个。这表示每个节点的硬件资源（CPU, RAM, I/O)将被更少的分片所共享，每个分片的性能将会得到提升。
+
+分片是一个功能完整的搜索引擎，它拥有使用一个节点上的所有资源的能力。 我们这个拥有 6 个分片（3 个主分片和 3 个副本分片）的索引可以最大扩容到 6 个节点，每个节点上存在一个分片，并且每个分片拥有所在节点的全部资源。
 
 **但是如果我们想要扩容超过 6 个节点怎么办呢？**
 
-主分片的数目在索引创建时就已经确定了下来。实际上，这个数目定义了这个索引能够  
-存储 的最大数据量。（实际大小取决于你的数据、硬件和使用场景。） 但是，读操作——  
-搜索和返回数据——可以同时被主分片 或 副本分片所处理，所以当你拥有越多的副本分片  
-时，也将拥有越高的吞吐量。
+主分片的数目在索引创建时就已经确定了下来。实际上，这个数目定义了这个索引能够存储的最大数据量。（实际大小取决于你的数据、硬件和使用场景）但是，读操作---搜索和返回数据---可以同时被主分片或副本分片所处理，所以当你拥有越多的副本分片时，也将拥有越高的吞吐量。
 
-在运行中的集群上是可以动态调整副本分片数目的，我们可以按需伸缩集群。让我们把  
-副本数从默认的 1 增加到 2。
+在运行中的集群上是可以动态调整副本分片数目的，我们可以按需伸缩集群。让我们把副本数从默认的 1 增加到 2。
 
 ```json
-#PUT http://127.0.0.1:1001/users/_settings
+#PUT http://127.0.0.1:1002/users/_settings
 
 {
     "number_of_replicas" : 2
@@ -4235,8 +4305,7 @@ cluster.name 配置的节点组成， 它们共同承担数据和负载的压力
 ```
 
 
-users 索引现在拥有 9 个分片： 3 个主分片和 6 个副本分片。 这意味着我们可以将集群  
-扩容到 9 个节点，每个节点上一个分片。相比原来 3 个节点时，集群搜索性能可以提升 3 倍。
+users 索引现在拥有 9 个分片： 3 个主分片和 6 个副本分片。 这意味着我们可以将集群扩容到 9 个节点，每个节点上一个分片。相比原来 3 个节点时，集群搜索性能可以提升 3 倍。
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/97fd01e34e5d8df23d226c4fef157801.png)
 
@@ -4244,11 +4313,7 @@ users 索引现在拥有 9 个分片： 3 个主分片和 6 个副本分片。 �
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/8bf9dbf0cec5b7875bf8aa9d17a9a67c.png)
 
-当然，如果只是在相同节点数目的集群上增加更多的副本分片并不能提高性能，因为每  
-个分片从节点上获得的资源会变少。 你需要增加更多的硬件资源来提升吞吐量。
-
-但是更多的副本分片数提高了数据冗余量：按照上面的节点配置，我们可以在失去 2 个节点  
-的情况下不丢失任何数据。
+当然，如果只是在相同节点数目的集群上增加更多的副本分片并不能提高性能，因为每个分片从节点上获得的资源会变少。你需要增加更多的硬件资源来提升吞吐量。但是更多的副本分片数提高了数据冗余量：按照上面的节点配置，我们可以在失去 2 个节点的情况下不丢失任何数据。
 
 ### 38-进阶-应对故障
 
@@ -4256,9 +4321,7 @@ users 索引现在拥有 9 个分片： 3 个主分片和 6 个副本分片。 �
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/44e841004be934e6bce08187ca3852bb.png)
 
-我们关闭的节点是一个主节点。而集群必须拥有一个主节点来保证正常工作，所以发生  
-的第一件事情就是选举一个新的主节点： Node 2 。在我们关闭 Node 1 的同时也失去了主  
-分片 1 和 2 ，并且在缺失主分片的时候索引也不能正常工作。 如果此时来检查集群的状况，我们看到的状态将会为 red ：不是所有主分片都在正常工作。
+我们关闭的节点是一个主节点。而集群必须拥有一个主节点来保证正常工作，所以发生的第一件事情就是选举一个新的主节点： Node 2 。在我们关闭 Node 1 的同时也失去了主分片 1 和 2 ，并且在缺失主分片的时候索引也不能正常工作。 如果此时来检查集群的状况，我们看到的状态将会为 red ：不是所有主分片都在正常工作。
 
 幸运的是，在其它节点上存在着这两个主分片的完整副本， 所以新的主节点立即将这些分片在 Node 2 和 Node 3 上对应的副本分片提升为主分片， 此时集群的状态将会为yellow。这个提升主分片的过程是瞬间发生的，如同按下一个开关一般。
 
@@ -4266,14 +4329,11 @@ users 索引现在拥有 9 个分片： 3 个主分片和 6 个副本分片。 �
 
 **为什么我们集群状态是 yellow 而不是 green 呢？**
 
-虽然我们拥有所有的三个主分片，但是同时设置了每个主分片需要对应 2 份副本分片，而此  
-时只存在一份副本分片。 所以集群不能为 green 的状态，不过我们不必过于担心：如果我  
-们同样关闭了 Node 2 ，我们的程序 依然 可以保持在不丢任何数据的情况下运行，因为  
-Node 3 为每一个分片都保留着一份副本。
+虽然我们拥有所有的三个主分片，但是同时设置了每个主分片需要对应 2 份副本分片，而此时只存在一份副本分片。 所以集群不能为 green 的状态，不过我们不必过于担心：如果我们同样关闭了 Node 2 ，我们的程序 依然 可以保持在不丢任何数据的情况下运行，因为 Node 3 为每一个分片都保留着一份副本。
 
 如果想回复原来的样子，要确保Node-1的配置文件有如下配置：
 
-```shell
+```properties
 discovery.seed_hosts: ["localhost:9302", "localhost:9303"]
 ```
 
@@ -4286,21 +4346,18 @@ discovery.seed_hosts: ["localhost:9302", "localhost:9303"]
 
 #### 路由计算
 
-当索引一个文档的时候，文档会被存储到一个主分片中。 Elasticsearch 如何知道一个  
-文档应该存放到哪个分片中呢？当我们创建文档时，它如何决定这个文档应当被存储在分片 1 还是分片 2 中呢？首先这肯定不会是随机的，否则将来要获取文档的时候我们就不知道从何处寻找了。实际上，这个过程是根据下面这个公式决定的：
+当索引一个文档的时候，文档会被存储到一个主分片中。 Elasticsearch 如何知道一个文档应该存放到哪个分片中呢？当我们创建文档时，它如何决定这个文档应当被存储在分片 1 还是分片 2 中呢？首先这肯定不会是随机的，否则将来要获取文档的时候我们就不知道从何处寻找了。实际上，这个过程是根据下面这个公式决定的：
 
-```
-shard = hash(routing) % number_of_primary_shards
-```
+**shard = hash(routing) % number_of_primary_shards**
 
 
 routing 是一个可变值，默认是文档的 \_id ，也可以设置成一个自定义的值。 routing 通过hash 函数生成一个数字，然后这个数字再除以 number\_of\_primary\_shards （主分片的数量）后得到余数 。这个分布在 0 到 number\_of\_primary_shards-1 之间的余数，就是我们所寻求的文档所在分片的位置。
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/9c34e8603887c2bed475416e3b67cd9a.png)
 
-这就解释了为什么我们要在创建索引的时候就确定好主分片的数量并且永远不会改变这个数量:因为如果数量变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
+这就解释了为什么我们要在创建索引的时候就确定好主分片的数量并且永远不会改变这个数量：因为如果数量变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
 
-所有的文档API ( get . index . delete 、 bulk , update以及 mget ）都接受一个叫做routing 的路由参数，通过这个参数我们可以自定义文档到分片的映射。一个自定义的路由参数可以用来确保所有相关的文档—一例如所有属于同一个用户的文档——都被存储到同一个分片中。
+所有的文档API ( get . index . delete 、 bulk , update以及 mget ）都接受一个叫做 routing 的路由参数，通过这个参数我们可以自定义文档到分片的映射。一个自定义的路由参数可以用来确保所有相关的文档—一例如所有属于同一个用户的文档——都被存储到同一个分片中。
 
 #### 分片控制
 
@@ -4308,19 +4365,19 @@ routing 是一个可变值，默认是文档的 \_id ，也可以设置成一个
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/3940d6cdb197259368542b86384911a4.png)
 
-当发送请求的时候， 为了扩展负载，更好的做法是轮询集群中所有的节点。
+当发送请求的时候，为了扩展负载，更好的做法是轮询集群中所有的节点。
 
 ### 40-进阶-数据写流程
 
-新建、索引和删除请求都是写操作， 必须在主分片上面完成之后才能被复制到相关的副本分片。
+新建、索引和删除请求都是写操作，必须在主分片上面完成之后才能被复制到相关的副本分片。
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/418356a32516c222a8d366df021276c2.png)
 
-在客户端收到成功响应时，文档变更已经在主分片和所有副本分片执行完成，变更是安全的。有一些可选的**请求参数**允许您影响这个过程，可能以数据安全为代价提升性能。这些选项很少使用，因为 Elasticsearch 已经很快，但是为了完整起见， 请参考下文：
+在客户端收到成功响应时，文档变更已经在主分片和所有副本分片执行完成，变更是安全的。有一些可选的请求参数允许您影响这个过程，可能以数据安全为代价提升性能。这些选项很少使用，因为 Elasticsearch 已经很快，但是为了完整起见，请参考下文：
 
 1.  consistency
 
-*   即一致性。在默认设置下，即使仅仅是在试图执行一个写操作之前，主分片都会要求必须要有规定数量quorum（或者换种说法，也即必须要有大多数）的分片副本处于活跃可用状态，才会去执行写操作（其中分片副本 可以是主分片或者副本分片）。这是为了避免在发生网络分区故障（network partition）的时候进行写操作，进而导致数据不一致。 规定数量即： **int((primary + number\_of\_replicas) / 2 ) + 1**
+*   即一致性。在默认设置下，即使仅仅是在试图执行一个写操作之前，主分片都会要求必须要有规定数量quorum（或者换种说法，也即必须要有大多数）的分片副本处于活跃可用状态，才会去执行写操作（其中分片副本 可以是主分片或者副本分片）。这是为了避免在发生网络分区故障（network partition）的时候进行写操作，进而导致数据不一致。 规定数量即：**int((primary + number\_of\_replicas) / 2 ) + 1**
 *   consistency 参数的值可以设为：
     *   one ：只要主分片状态 ok 就允许执行写操作。
     *   all：必须要主分片和所有副本分片的状态没问题才允许执行写操作。
@@ -4336,7 +4393,7 @@ routing 是一个可变值，默认是文档的 \_id ，也可以设置成一个
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/7139df83ee6f7a59c5d3252d34cc8762.png)
 
-在处理读取请求时，协调结点在每次请求的时候都会通过轮询所有的副本分片来达到负载均衡。在文档被检索时，已经被索引的文档可能已经存在于主分片上但是还没有复制到副本分片。 在这种情况下，副本分片可能会报告文档不存在，但是主分片可能成功返回文档。 一旦索引请求成功返回给用户，文档在主分片和副本分片都是可用的。
+在处理读取请求时，协调结点在每次请求的时候都会通过轮询所有的副本分片来达到负载均衡。在文档被检索时，已经被索引的文档可能已经存在于主分片上但是还没有复制到副本分片。在这种情况下，副本分片可能会报告文档不存在，但是主分片可能成功返回文档。 一旦索引请求成功返回给用户，文档在主分片和副本分片都是可用的。
 
 ### 42-进阶-更新流程 & 批量操作流程
 
@@ -4357,7 +4414,7 @@ routing 是一个可变值，默认是文档的 \_id ，也可以设置成一个
 
 #### 批量操作流程
 
-\*\*mget和 bulk API的模式类似于单文档模式。\*\*区别在于协调节点知道每个文档存在于哪个分片中。它将整个多文档请求分解成每个分片的多文档请求，并且将这些请求并行转发到每个参与节点。
+mget和 bulk API的模式类似于单文档模式。区别在于协调节点知道每个文档存在于哪个分片中。它将整个多文档请求分解成每个分片的多文档请求，并且将这些请求并行转发到每个参与节点。
 
 协调节点一旦收到来自每个节点的应答，就将每个节点的响应收集整理成单个响应，返回给客户端。
 
@@ -4384,13 +4441,13 @@ bulk API， 允许在单个批量请求中执行多个创建、索引、删除�
 
 分片是Elasticsearch最小的工作单元。但是究竟什么是一个分片，它是如何工作的？
 
-传统的数据库每个字段存储单个值，但这对全文检索并不够。文本字段中的每个单词需要被搜索，对数据库意味着需要单个字段有索引多值的能力。最好的支持是一个字段多个值需求的数据结构是**倒排索引**。
+传统的数据库每个字段存储单个值，但这对全文检索并不够。文本字段中的每个单词需要被搜索，对数据库意味着需要单个字段有索引多值的能力。最好的支持是一个字段多个值需求的数据结构是倒排索引。
 
 #### 倒排索引原理
 
 Elasticsearch使用一种称为倒排索引的结构，它适用于快速的全文搜索。
 
-见其名，知其意，有倒排索引，肯定会对应有正向索引。正向索引（forward index），反向索引（inverted index）更熟悉的名字是**倒排索引**。
+见其名，知其意，有倒排索引，肯定会对应有正向索引。正向索引（forward index），反向索引（inverted index）更熟悉的名字是倒排索引。
 
 所谓的**正向索引**，就是搜索引擎会将待搜索的文件都对应一个文件ID，搜索时将这个ID和搜索关键字进行对应，形成K-V对，然后对关键字进行统计计数。（统计？？下文有解释）
 
@@ -4411,7 +4468,7 @@ Elasticsearch使用一种称为倒排索引的结构，它适用于快速的全�
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/3cc642e9bae776c3e617f9d117d41e21.png)
 
-现在，如果我们想搜索 `quick` `brown` ，我们只需要查找包含每个词条的文档：
+现在，如果我们想搜索 quick brown ，我们只需要查找包含每个词条的文档：
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/f26aaa01e011edfa68736956b2f1ddea.png)
 
@@ -4419,30 +4476,30 @@ Elasticsearch使用一种称为倒排索引的结构，它适用于快速的全�
 
 但是，我们目前的倒排索引有一些问题：
 
-*   `Quick`和`quick`以独立的词条出现，然而用户可能认为它们是相同的词。
+*   Quick和quick以独立的词条出现，然而用户可能认为它们是相同的词。
     
-*   `fox`和`foxes`非常相似，就像`dog`和`dogs`；他们有相同的词根。
+*   fox和foxes非常相似，就像dog和dogs；他们有相同的词根。
     
-*   `jumped`和`leap`，尽管没有相同的词根，但他们的意思很相近。他们是同义词。
+*   jumped和leap，尽管没有相同的词根，但他们的意思很相近。他们是同义词。
     
 
-使用前面的索引搜索`+Quick` `+fox`不会得到任何匹配文档。(记住，＋前缀表明这个词必须存在）。
+使用前面的索引搜索+Quick +fox不会得到任何匹配文档。(记住，＋前缀表明这个词必须存在）。
 
-只有同时出现`Quick`和`fox` 的文档才满足这个查询条件，但是第一个文档包含`quick` `fox` ，第二个文档包含`Quick` `foxes` 。
+只有同时出现Quick和fox 的文档才满足这个查询条件，但是第一个文档包含quick fox ，第二个文档包含Quick foxes。
 
 我们的用户可以合理的期望两个文档与查询匹配。我们可以做的更好。
 
 如果我们将词条规范为标准模式，那么我们可以找到与用户搜索的词条不完全一致，但具有足够相关性的文档。例如：
 
-*   `Quick`可以小写化为`quick`。
-*   `foxes`可以词干提取变为词根的格式为`fox`。类似的，`dogs`可以为提取为`dog`。
-*   `jumped`和`leap`是同义词，可以索引为相同的单词`jump` 。
+*   Quick可以小写化为quick。
+*   foxes可以词干提取变为词根的格式为fox。类似的，dogs可以为提取为dog。
+*   jumped和leap是同义词，可以索引为相同的单词jump。
 
 现在索引看上去像这样：
 
 ![](https://qiniu.xinghe.fit/Elasticsearch/19813d1918c89461303377444cf85c8c.png)
 
-这还远远不够。我们搜索`+Quick` `+fox` 仍然会失败，因为在我们的索引中，已经没有`Quick`了。但是，如果我们对搜索的字符串使用与content域相同的标准化规则，会变成查询`+quick` `+fox`，这样两个文档都会匹配！分词和标准化的过程称为**分析**，这非常重要。你只能搜索在索引中出现的词条，所以索引文本和查询字符串必须标准化为相同的格式。
+这还远远不够。我们搜索+Quick +fox 仍然会失败，因为在我们的索引中，已经没有Quick了。但是，如果我们对搜索的字符串使用与content域相同的标准化规则，会变成查询+quick +fox，这样两个文档都会匹配！分词和标准化的过程称为分析，这非常重要。你只能搜索在索引中出现的词条，所以索引文本和查询字符串必须标准化为相同的格式。
 
 ### 44-进阶-文档搜索
 
@@ -5562,7 +5619,7 @@ public class SpringDataESIndexTest {
 
 用Postman 检测有没有创建和删除。
 
-```http
+```json
 #GET http://localhost:9200/_cat/indices?v 
 ```
 
@@ -6030,7 +6087,7 @@ path.logs: /path/to/logs
 *   控制每个分片占用的硬盘容量不超过 ES 的最大 JVM 的堆空间设置（一般设置不超过 32G，参考下文的 JVM 设置原则），因此，如果索引的总容量在 500G 左右，那分片大小在 16 个左右即可；当然，最好同时考虑原则 2。
 *   考虑一下 node 数量，一般一个节点有时候就是一台物理机，如果分片数过多，大大超过了节点数，很可能会导致一个节点上存在多个分片，一旦该节点故障，即使保持了 1 个以上的副本，同样有可能会导致数据丢失，集群无法恢复。所以， 一般都设置分片数不超过节点数的 3 倍。
 *   主分片，副本和节点最大数之间数量，我们分配的时候可以参考以下关系：  
-    `节点数<=主分片数 *（副本数+1）`
+    节点数<=主分片数 *（副本数+1）
 
 #### 推迟分片分配
 
@@ -6145,65 +6202,17 @@ ES 默认安装后设置的内存是 1GB，对于任何一个现实业务来说�
 
 ### 61-优化-重要配置
 
-参数名
-
-参数值
-
-说明
-
-cluster.name
-
-elasticsearch
-
-配置 ES 的集群名称，默认值是 ES，建议改成与所存数据相关的名称， ES 会自动发现在同一网段下的 集群名称相同的节点。
-
-node.name
-
-node-1
-
-集群中的节点名，在同一个集群中不能重复。节点 的名称一旦设置，就不能再改变了。当然，也可以 设 置 成 服 务 器 的 主 机 名 称 ， 例 如 node.name:${HOSTNAME}。
-
-node.master
-
-true
-
-指定该节点是否有资格被选举成为 Master 节点，默 认是 True，如果被设置为 True，则只是有资格成为 Master 节点，具体能否成为 Master 节点，需要通 过选举产生。
-
-node.data
-
-true
-
-指定该节点是否存储索引数据，默认为 True。数据 的增、删、改、查都是在 Data 节点完成的。
-
-index.number\_of\_shards
-
-1
-
-设置都索引分片个数，默认是 1 片。也可以在创建 索引时设置该值，具体设置为多大都值要根据数据 量的大小来定。如果数据量不大，则设置成 1 时效 率最高
-
-index.number\_of\_replicas
-
-1
-
-设置默认的索引副本个数，默认为 1 个。副本数越 多，集群的可用性越好，但是写索引时需要同步的 数据越多。
-
-transport.tcp.compress
-
-true
-
-设置在节点间传输数据时是否压缩，默认为 False， 不压缩
-
-discovery.zen.minimum\_master\_nodes
-
-1
-
-设置在选举 Master 节点时需要参与的最少的候选 主节点数，默认为 1。如果使用默认值，则当网络 不稳定时有可能会出现脑裂。 合 理 的 数 值 为 (master\_eligible\_nodes/2)+1 ， 其 中 master\_eligible\_nodes 表示集群中的候选主节点数
-
-discovery.zen.ping.timeout
-
-3s
-
-设置在集群中自动发现其他节点时 Ping 连接的超 时时间，默认为 3 秒。 在较差的网络环境下需要设置得大一点，防止因误 判该节点的存活状态而导致分片的转移
+|               参数名               |    参数值     |                             说明                             |
+| :--------------------------------: | :-----------: | :----------------------------------------------------------: |
+|            cluster.name            | elasticsearch | 配置 ES 的集群名称，默认值是 ES，建议改成与所存数据相关的名称， ES 会自动发现在同一网段下的集群名称相同的节点。 |
+|             node.name              |    node-1     | 集群中的节点名，在同一个集群中不能重复。节点的名称一旦设置，就不能再改变了。当然，也可以设置成服务器的主机名称，例如 node.name:${HOSTNAME}。 |
+|            node.master             |     true      | 指定该节点是否有资格被选举成为 Master 节点，默认是 True，如果被设置为 True，则只是有资格成为 Master 节点，具体能否成为 Master 节点，需要通过选举产生。 |
+|             node.data              |     true      | 指定该节点是否存储索引数据，默认为 True。数据的增、删、改、查都是在 Data 节点完成的。 |
+|       index.number_of_shards       |       1       | 设置都索引分片个数，默认是 1 片。也可以在创建索引时设置该值，具体设置为多大都值要根据数据量的大小来定。如果数据量不大，则设置成 1 时效率最高 |
+|      index.number_of_replicas      |       1       | 设置默认的索引副本个数，默认为 1 个。副本数越多，集群的可用性越好，但是写索引时需要同步的数据越多。 |
+|       transport.tcp.compress       |     true      |    设置在节点间传输数据时是否压缩，默认为 False， 不压缩     |
+| discovery.zen.minimum_master_nodes |       1       | 设置在选举 Master 节点时需要参与的最少的候选主节点数，默认为 1。如果使用默认值，则当网络不稳定时有可能会出现脑裂。合理的数值为(master_eligible_nodes/2)+1 ， 其 中 master_eligible_nodes 表示集群中的候选主节点数 |
+|     discovery.zen.ping.timeout     |      3s       | 设置在集群中自动发现其他节点时 Ping 连接的超 时时间，默认为 3 秒。在较差的网络环境下需要设置得大一点，防止因误判该节点的存活状态而导致分片的转移 |
 
 第7章 Elasticsearch面试题
 --------------------
@@ -6216,14 +6225,10 @@ discovery.zen.ping.timeout
 
 #### Elasticsearch 的 master 选举流程？
 
-*   Elasticsearch的选主是ZenDiscovery模块负责的，主要包含Ping（节点之间通过这个RPC来发现彼此）  
-    和Unicast（单播模块包含-一个主机列表以控制哪些节点需要ping通）这两部分。
-*   对所有可以成为master的节点（node master: true）根据nodeId字典排序，每次选举每个节点都把自  
-    己所知道节点排一次序，然后选出第一个（第0位）节点，暂且认为它是master节点。
-*   如果对某个节点的投票数达到一定的值（可以成为master节点数n/2+1）并且该节点自己也选举自己，  
-    那这个节点就是master。否则重新选举一直到满足上述条件。
-*   master节点的职责主要包括集群、节点和索引的管理，不负责文档级别的管理；data节点可以关闭http  
-    功能。
+*   Elasticsearch的选主是ZenDiscovery模块负责的，主要包含Ping（节点之间通过这个RPC来发现彼此）和Unicast（单播模块包含-一个主机列表以控制哪些节点需要ping通）这两部分。
+*   对所有可以成为master的节点（node master: true）根据nodeId字典排序，每次选举每个节点都把自己所知道节点排一次序，然后选出第一个（第0位）节点，暂且认为它是master节点。
+*   如果对某个节点的投票数达到一定的值（可以成为master节点数n/2+1）并且该节点自己也选举自己，那这个节点就是 master。否则重新选举一直到满足上述条件。
+*   master节点的职责主要包括集群、节点和索引的管理，不负责文档级别的管理；data节点可以关闭 http 功能。
 
 #### Elasticsearch 集群脑裂问题？
 
